@@ -2,9 +2,9 @@ const mysql = require("mysql2");
 
 const Sequelize = require("sequelize");
 
-const sequelize = new Sequelize("restaurant_chain", "root", "", {
+const sequelize = new Sequelize("learnHub", "root", "", {
   dialect: "mysql",
-//   port: process.env.PORTDB,
+
   host: 'localhost',
 });
 
