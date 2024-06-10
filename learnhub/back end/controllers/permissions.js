@@ -1,9 +1,11 @@
 const Permissions = require("../models/permission");
 
+
+
 exports.addNewPermissions = async (req, res, next) => {
   Permissions.bulkCreate([
     { name: "view_courses" },
-    { name: "add_course" },
+    { name: "manage_course" },
 
     { name: "manage_users" },
   ])

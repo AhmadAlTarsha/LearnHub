@@ -1,7 +1,7 @@
 const Type = require("../models/user_type");
 const Permission = require("../models/permission");
 const TypePermission = require("../models/type_permission");
-// const {Error}= require("../middleware/throwError")
+
 exports.addNewTypePermission = async (req, res, next) => {
   const { type_id, permission_id } = req.body;
 

@@ -49,12 +49,13 @@ const TypePermission = require("./routes/type_permission");
 
 const PermissionRouter = require("./routes/permissions");
 const typeRouter = require("./routes/user_type");
+const usersRouter = require("./routes/users");
 
 //-----------------------------------------------
 app.use("/type_permission", TypePermission);
 app.use("/permissions", PermissionRouter);
 app.use("/types", typeRouter);
-
+app.use("/users", usersRouter);
 
 app.use("*", (req, res) =>
   res.status(404).json({

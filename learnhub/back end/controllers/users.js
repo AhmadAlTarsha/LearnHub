@@ -8,7 +8,7 @@ const Permission = require("../models/permission");
 
 const path = require("path");
 
-// const { mwError } = require("../middleware/throwError");
+
 const fs = require("fs");
 const clearImage = (filePath) => {
   filePath = path.join(__dirname, "..", filePath);
@@ -16,7 +16,7 @@ const clearImage = (filePath) => {
     console.log(err);
   });
 };
-//---------------------------------------------------- signup function to signup new user
+//*----------------------------------------------------------------- signup function to signup new user
 
 exports.signup = async (req, res, next) => {
   const {
@@ -54,7 +54,7 @@ exports.signup = async (req, res, next) => {
     });
 
     if (!result._options.isNewRecord) {
-      clearImage(image);
+      // clearImage(image);
 
       return res.status(401).json({
         error: true,
@@ -68,7 +68,7 @@ exports.signup = async (req, res, next) => {
       });
     }
   } catch (error) {
-    clearImage(image);
+    // clearImage(image);
     if (error.message) {
       return res.status(500).json({
         error: true,
@@ -170,7 +170,7 @@ exports.login = async (req, res, next) => {
         token,
       });
     }
-    return mwError(404, "Error !!");
+    return Error(404, "Error !!");
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
