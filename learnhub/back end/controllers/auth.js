@@ -204,7 +204,7 @@ exports.updateUserInfoById = async (req, res, next) => {
       
      
    
-      birth_date,
+      
     } = req.body;
     const { id } = req.params;
 
@@ -212,7 +212,7 @@ exports.updateUserInfoById = async (req, res, next) => {
       {
         full_name,
        
-        birth_date,
+       
       },
       { where: { id } }
     );
