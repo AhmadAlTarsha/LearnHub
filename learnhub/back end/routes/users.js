@@ -6,7 +6,7 @@ const {
 
   updateUserInfoById,
   updateUserImage,
-} = require("../controllers/users");
+} = require("../controllers/auth");
 const { authentication } = require("../middleware/authentication");
 const { authorization } = require("../middleware/authorization");
 
@@ -17,7 +17,7 @@ usersRouter.get("/:id", getUserById);
 
 usersRouter.post("/login", login);
 usersRouter.put("/update/info/:id", updateUserInfoById);
-usersRouter.put("/update/image/:id", updateUserImage);
+// usersRouter.put("/update/image/:id", updateUserImage);
 
 // usersRouter.put("/update/spare-phone/:id", updateUserSparePhone);
 

@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const UserType = require("../models/user_type");
+const { throwError } = require("../middleware/throwError");
 
 const TypePermission = require("../models/type_permission");
 const Permission = require("../models/permission");
@@ -10,6 +11,7 @@ const path = require("path");
 
 
 const fs = require("fs");
+const { error } = require("console");
 const clearImage = (filePath) => {
   filePath = path.join(__dirname, "..", filePath);
   fs.unlink(filePath, (err) => {
@@ -139,13 +141,26 @@ exports.login = async (req, res, next) => {
       },
     });
 
+if (!result) {
+  return  res.status(404).json({
+    error: true,
+    message:"email does not exists"
+  })
+}
+  
+
     if (result?.dataValues?.id) {
+
+
       const isValidPassword = await bcrypt.compare(
         password,
         result?.dataValues?.password
       );
       if (!isValidPassword) {
-        return mwErrorError(404, "Email or Password is incorrect");
+        return res.status(404).json({
+          error: true,
+          message:"wrong password"
+        })
       }
 
       user = result?.dataValues;
@@ -170,7 +185,10 @@ exports.login = async (req, res, next) => {
         token,
       });
     }
-    return Error(404, "Error !!");
+
+    return throwError(404, "Email or Password is incorrect");
+
+    
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
@@ -178,7 +196,6 @@ exports.login = async (req, res, next) => {
     next(err);
   }
 };
-
 
 exports.updateUserInfoById = async (req, res, next) => {
   try {
@@ -223,39 +240,39 @@ exports.updateUserInfoById = async (req, res, next) => {
   }
 };
 
-exports.updateUserImage = async (req, res, next) => {
-  let image;
-  try {
-    if (req.file) {
-      image = req.file.path.replace("\\", "/");
-    }
-    const { id } = req.params;
-    const {
-      dataValues: { civil_identity_image },
-    } = await User.findByPk(id, {
-      attributes: ["civil_identity_image"],
-    });
+// exports.updateUserImage = async (req, res, next) => {
+//   let image;
+//   try {
+//     if (req.file) {
+//       image = req.file.path.replace("\\", "/");
+//     }
+//     const { id } = req.params;
+//     const {
+//       dataValues: { civil_identity_image },
+//     } = await User.findByPk(id, {
+//       attributes: ["civil_identity_image"],
+//     });
 
-    const [result] = await User.update(
-      {
-        civil_identity_image: image,
-      },
-      { where: { id } }
-    );
+//     const [result] = await User.update(
+//       {
+//         civil_identity_image: image,
+//       },
+//       { where: { id } }
+//     );
 
-    if (result) {
-      clearImage(civil_identity_image);
-      return res.status(200).json({
-        error: false,
-        message: "image updated successfully",
-      });
-    }
-  } catch (err) {
-    clearImage(image);
-    if (!err.statusCode) {
-      err.statusCode = 500;
-    }
-    next(err);
-  }
-};
+//     if (result) {
+//       clearImage(civil_identity_image);
+//       return res.status(200).json({
+//         error: false,
+//         message: "image updated successfully",
+//       });
+//     }
+//   } catch (err) {
+//     clearImage(image);
+//     if (!err.statusCode) {
+//       err.statusCode = 500;
+//     }
+//     next(err);
+//   }
+// };
 
