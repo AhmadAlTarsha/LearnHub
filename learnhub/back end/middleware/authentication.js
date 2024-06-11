@@ -1,28 +1,30 @@
 const jwt = require("jsonwebtoken");
-const path = require("path");
-const fs = require("fs");
-const clearImage = (filePath) => {
-  filePath = path.join(__dirname, "..", filePath);
+// const path = require("path");
+// const fs = require("fs");
+// const clearImage = (filePath) => {
+//   filePath = path.join(__dirname, "..", filePath);
 
-  fs.unlink(filePath, (err) => {
-    console.log(err);
-  });
-};
+//   fs.unlink(filePath, (err) => {
+//     console.log(err);
+//   });
+// };
 exports.authentication = (req, res, next) => {
-  let image;
-  if (req.file) {
-    image = req.file.path.replace("\\", "/");
-  }
+  // let image;
+  // if (req.file) {
+  //   image = req.file.path.replace("\\", "/");
+  // }
 
   try {
     if (!req.headers.authorization){ 
-      clearImage(image);
+      // clearImage(image);
       res.status(403).json({ message: "forbidden !" });}
      
 
     const token = req.headers.authorization.split(" ").pop();
 
     jwt.verify(token, process.env.SECRET, (err, result) => {
+
+      console.log(token);
       if (err) {
         res.status(403).json({
           success: false,
@@ -34,7 +36,7 @@ exports.authentication = (req, res, next) => {
       }
     });
   } catch (error) {
-    clearImage(image);
+    // clearImage(image);
     res.status(403).json({ message: "forbidden" });
   }
 };
