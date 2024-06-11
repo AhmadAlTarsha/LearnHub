@@ -114,10 +114,10 @@ exports.getCourseById = async (req, res, next) => {
 
 exports.getCourseByUserId = async (req, res, next) => {
   const { user_id } = req.body;
-console.log(user_id);
+  console.log(user_id);
   try {
     const result = await Course.findAll(
-       {where: {user_id:user_id }}
+      { where: { user_id: user_id } }
       // {
       //   include: [
       //     {
@@ -128,26 +128,17 @@ console.log(user_id);
       // }
     );
 
-    // if (!result) {
-    //   return res.status(404).json({
-    //     error: true,
-    //     message: "course not found",
-    //   });
-    // }
-    console.log("==================================",result);
-    // const teacher = result.user.full_name
+    if (!result.length) {
+      return res.status(404).json({
+        error: true,
+        message: "course not found",
+      });
+    }
 
     return res.status(200).json({
       error: false,
       result: result,
-      // course: {
-      //   id: result.id,
-      //   name: result.name,
-      //   description: result.description,
-      //   active: result.active,
-      //   teacher: result.user.full_name,
-      //   created_at: result.created_at,
-      // },
+     
     });
   } catch (err) {
     return res.status(500).json({
