@@ -41,21 +41,24 @@ app.use(multer({ storage: storage, fileFilter: fileFilter }).single("image"));
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 //=======================Models=====================
-
 const User = require("./models/user");
+const Course = require("./models/course");
+
 
 //=======================Routes======================
 const TypePermission = require("./routes/type_permission");
-
 const PermissionRouter = require("./routes/permissions");
 const typeRouter = require("./routes/user_type");
 const usersRouter = require("./routes/users");
+const courseRouter = require("./routes/courses");
+
 
 //-----------------------------------------------
 app.use("/type_permission", TypePermission);
 app.use("/permissions", PermissionRouter);
 app.use("/types", typeRouter);
 app.use("/users", usersRouter);
+app.use("/course", courseRouter);
 
 app.use("*", (req, res) =>
   res.status(404).json({
