@@ -8,14 +8,14 @@ const {
   editCourse,
   getCourseByUserId,
 } = require("../controllers/courses");
-// const { authentication } = require("../middlewares/authintication");
-// const { authorization } = require("../middlewares/authurization");
+const { authentication } = require("../middleware/authentication");
+const { authorization } = require("../middleware/authorization");
 
-CourseRouter.post("/", addNewCourse);
+CourseRouter.post("/",authentication,authorization("manage_course"), addNewCourse);
 CourseRouter.get("/", getAllCourses);
 CourseRouter.get("/teacher", getCourseByUserId);
 CourseRouter.get("/:id", getCourseById);
-CourseRouter.put("/:id", editCourse);
-CourseRouter.delete("/:id", deleteCourse);
+CourseRouter.put("/:id",authentication,authorization("manage_course"), editCourse);
+CourseRouter.delete("/:id",authentication,authorization("manage_course"), deleteCourse);
 
 module.exports = CourseRouter;
