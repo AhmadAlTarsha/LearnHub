@@ -149,43 +149,43 @@ exports.getCourseByUserId = async (req, res, next) => {
 };
 exports.editCourse = async (req, res, next) => {
   const { id } = req.params;
-  const { name, phone, street_name } = req.body;
+  const { name, description } = req.body;
 
   try {
-    const existingBranch = await Branch.findOne({
-      where: {
-        name,
-        active: 1,
-        id: { [Op.ne]: id },
-      },
-    });
-    if (existingBranch) {
-      return res.status(400).json({
-        error: true,
-        message: "branch name in use",
-      });
-    }
-    const result = await Branch.update(
-      { name, phone, street_name },
+    // const existingBranch = await Branch.findOne({
+    //   where: {
+    //     name,
+    //     active: 1,
+    //     id: { [Op.ne]: id },
+    //   },
+    // });
+    // if (existingBranch) {
+    //   return res.status(400).json({
+    //     error: true,
+    //     message: "branch name in use",
+    //   });
+    // }
+    const result = await Course.update(
+      { name, description },
       { where: { id } }
     );
-    if (result.sqlMessage) {
-      return res.status(200).json({
-        error: false,
-        message: "Account info in use",
-      });
-    }
+    // if (result.sqlMessage) {
+    //   return res.status(200).json({
+    //     error: false,
+    //     message: "Account info in use",
+    //   });
+    // }
 
     if (result[0] === 0) {
       return res.status(404).json({
         error: true,
-        message: "branch not found or no changes made",
+        message: "course not found or no changes made",
       });
     }
 
     return res.status(200).json({
       error: false,
-      message: "branch updated successfully",
+      message: "course updated successfully",
     });
   } catch (err) {
     return res.status(500).json({
@@ -198,7 +198,7 @@ exports.editCourse = async (req, res, next) => {
 exports.deleteCourse = async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await Branch.update(
+    const result = await Course.update(
       {
         active: 0,
       },
@@ -207,7 +207,7 @@ exports.deleteCourse = async (req, res) => {
     if (result) {
       return res.status(200).json({
         error: false,
-        message: "branch deleted successfully",
+        message: "course deleted successfully",
       });
     }
     console.log(result);
