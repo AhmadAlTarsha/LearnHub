@@ -1,7 +1,13 @@
-
+import Footer from "./components/footer";
+import Navbar from "./components/navBar";
 
 function App() {
-  return <div className="App">Learn React</div>;
+  return (
+    <>
+      <Navbar />
+      <Footer />
+    </>
+  );
 }
 
 export default App;
