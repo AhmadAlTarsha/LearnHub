@@ -16,6 +16,9 @@ import {
   CssBaseline,
 } from "@mui/material";
 
+
+import SimpleSnackbar from "../components/Snackbar/index";
+
 function Signup() {
   const [formData, setFormData] = useState({
     name: "",
@@ -26,6 +29,14 @@ function Signup() {
     phone: "",
     birth_date: "",
   });
+
+  const [Snackbar,setSnackBar]=useState({
+    text:"",
+    status:""
+  })
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -46,7 +57,12 @@ function Signup() {
       formData.birth_date
     ) {
       if (formData.password !== formData.repassword) {
-        console.log("Passwords do not match");
+        setSnackBar({
+          text:"Passwords do not match",
+          status:"error"
+        });
+
+        setOpenSnackbar(true)
       } else {
         try {
           const result = await axios.post(
@@ -61,12 +77,32 @@ function Signup() {
             }
           );
           console.log(result);
+
+          setSnackBar({
+            text:"signup successfully",
+            status:"success"
+          });
+  
+          setOpenSnackbar(true)
         } catch (error) {
+
+          setSnackBar({
+            text:error.response.data
+            .message,
+            status:"error"
+          });
+  
+          setOpenSnackbar(true)
           console.error("Error during signup:", error);
         }
       }
     } else {
-      console.log("Missing data");
+      setSnackBar({
+        text:"missing data ",
+        status:"error"
+      });
+
+      setOpenSnackbar(true)
     }
   };
 
@@ -273,6 +309,12 @@ function Signup() {
           </Grid>
         </Grid>
       </Container>
+      <SimpleSnackbar
+        open={openSnackbar}
+        setOpen={setOpenSnackbar}
+        text={Snackbar.text}
+        status={Snackbar.status}
+      />
     </div>
   );
 }

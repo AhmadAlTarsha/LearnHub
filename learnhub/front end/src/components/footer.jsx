@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Container,
@@ -10,6 +10,9 @@ import {
 import { Home, Email, Phone, Print } from '@mui/icons-material';
 
 const Footer=()=> {
+
+
+
   return (
     <Box sx={{ width: '100%', marginTop: 4, backgroundColor: '#f8f9fa', color: '#212529' }}>
       <Container sx={{ py: 6 }}>
@@ -59,6 +62,7 @@ const Footer=()=> {
           </Typography>
         </Box>
       </Container>
+     
     </Box>
   );
 }
