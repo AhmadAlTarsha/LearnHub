@@ -16,7 +16,6 @@ import {
   CssBaseline,
 } from "@mui/material";
 
-
 import SimpleSnackbar from "../components/Snackbar/index";
 
 function Signup() {
@@ -30,13 +29,12 @@ function Signup() {
     birth_date: "",
   });
 
-  const [Snackbar,setSnackBar]=useState({
-    text:"",
-    status:""
-  })
+  const [Snackbar, setSnackBar] = useState({
+    text: "",
+    status: "",
+  });
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -58,11 +56,11 @@ function Signup() {
     ) {
       if (formData.password !== formData.repassword) {
         setSnackBar({
-          text:"Passwords do not match",
-          status:"error"
+          text: "Passwords do not match",
+          status: "error",
         });
 
-        setOpenSnackbar(true)
+        setOpenSnackbar(true);
       } else {
         try {
           const result = await axios.post(
@@ -79,30 +77,27 @@ function Signup() {
           console.log(result);
 
           setSnackBar({
-            text:"signup successfully",
-            status:"success"
+            text: "signup successfully",
+            status: "success",
           });
-  
-          setOpenSnackbar(true)
-        } catch (error) {
 
+          setOpenSnackbar(true);
+        } catch (error) {
           setSnackBar({
-            text:error.response.data
-            .message,
-            status:"error"
+            text: error.response.data.message,
+            status: "error",
           });
-  
-          setOpenSnackbar(true)
-          console.error("Error during signup:", error);
+
+          setOpenSnackbar(true);
         }
       }
     } else {
       setSnackBar({
-        text:"missing data ",
-        status:"error"
+        text: "missing data ",
+        status: "error",
       });
 
-      setOpenSnackbar(true)
+      setOpenSnackbar(true);
     }
   };
 

@@ -1,16 +1,14 @@
-import  React from 'react';
-import {Button,Alert} from '@mui/material/';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-// import { useTheme } from "@mui/material/styles";
+import React from "react";
+import { Button, Alert } from "@mui/material/";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
-export default function SimpleSnackbar({open,setOpen,text,status}) {
-console.log(text,status);
-// const theme=useTheme()
+export default function SimpleSnackbar({ open, setOpen, text, status }) {
+  console.log(text, status);
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -19,33 +17,30 @@ console.log(text,status);
 
   const action = (
     <>
-      <Button  size="small" onClick={handleClose}>
+      <Button size="small" onClick={handleClose}>
         UNDO
       </Button>
-      <IconButton
-        size="small"
-        aria-label="close"
-        
-        onClick={handleClose}
-      >
+      <IconButton size="small" aria-label="close" onClick={handleClose}>
         <CloseIcon fontSize="small" />
       </IconButton>
     </>
   );
 
   return (
-    
-     
-    <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}  action={action}>
-        <Alert
-          onClose={handleClose}
-          severity={status}
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
+    <Snackbar
+      open={open}
+      autoHideDuration={3000}
+      onClose={handleClose}
+      action={action}
+    >
+      <Alert
+        onClose={handleClose}
+        severity={status}
+        variant="filled"
+        sx={{ width: "100%" }}
+      >
         {text}
-        </Alert>
-      </Snackbar>
-    
+      </Alert>
+    </Snackbar>
   );
 }
