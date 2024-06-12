@@ -1,18 +1,18 @@
 import React, { useContext } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, Link } from '@mui/material';
 import { useNavigate } from 'react-router';
-import { Context } from '../../App';
-import './Nav.css';
+
+
 
 function Navbar() {
-  const redirect = useNavigate();
-  const { isLogin, setIsLogin, setToken, roleID } = useContext(Context);
+//   const redirect = useNavigate();
+ 
 
   const handleLogout = () => {
     localStorage.clear();
-    setIsLogin(false);
-    setToken(null);
-    redirect('/');
+    // setIsLogin(false);
+    // setToken(null);
+    // redirect('/');
   };
 
   return (
@@ -24,25 +24,25 @@ function Navbar() {
           </Link>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Button color="inherit" onClick={() => redirect('/')}>
+          <Button color="inherit" >
             Home
           </Button>
-          {!isLogin ? (
+          {!false ? (
             <>
-              <Button color="inherit" onClick={() => redirect('/login')}>
+              <Button color="inherit">
                 Login
               </Button>
-              <Button color="inherit" onClick={() => redirect('/Register')}>
+              <Button color="inherit" >
                 Register
               </Button>
             </>
           ) : (
             <>
-              <Button color="inherit" onClick={() => redirect('/courses')}>
+              <Button color="inherit">
                 Courses
               </Button>
-              {roleID * 1 === 2 ? (
-                <Button color="inherit" onClick={() => redirect('/Teacher')}>
+              {true * 1 === 2 ? (
+                <Button color="inherit" >
                   Teacher Dashboard
                 </Button>
               ) : (
