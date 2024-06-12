@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+
 import { AppBar, Toolbar, Typography, Button, Box, Link } from '@mui/material';
 import { useNavigate } from 'react-router';
 
 
 
 function Navbar() {
-//   const redirect = useNavigate();
+  const redirect = useNavigate();
+
  
 
   const handleLogout = () => {
@@ -29,11 +30,11 @@ function Navbar() {
           </Button>
           {!false ? (
             <>
-              <Button color="inherit">
+              <Button color="inherit" onClick={()=>{redirect("/login")}}>
                 Login
               </Button>
-              <Button color="inherit" >
-                Register
+              <Button color="inherit" onClick={()=>{redirect("/signup")}} >
+                signUp for free
               </Button>
             </>
           ) : (
