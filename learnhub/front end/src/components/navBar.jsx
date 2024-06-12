@@ -25,7 +25,7 @@ function Navbar() {
           </Link>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Button color="inherit" >
+          <Button color="inherit" onClick={()=>{redirect("/")}} >
             Home
           </Button>
           {!false ? (
