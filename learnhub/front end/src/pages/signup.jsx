@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import {
   Box,
   Button,
@@ -7,23 +8,23 @@ import {
   Grid,
   TextField,
   Typography,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
+  Select,
+  MenuItem,
   FormControl,
-  FormLabel,
+  InputLabel,
   Paper,
+  CssBaseline,
 } from "@mui/material";
 
 function Signup() {
   const [formData, setFormData] = useState({
-    full_name: "",
+    name: "",
     email: "",
     password: "",
     repassword: "",
-    role: "user",
+    user_type_id: "1",
     phone: "",
-    birthday: "",
+    birth_date: "",
   });
 
   const handleChange = (event) => {
@@ -34,20 +35,7 @@ function Signup() {
     });
   };
 
-  const handelSignup = async (data) => {
-    const result = await axios.post("http://localhost:5001/users/signup", {
-      full_name: data.name,
-      password: data.password,
-      email: data.email,
-      user_phone: data.phone,
-      birth_date: data.birthday,
-      user_type_id: 1,
-    });
-
-    console.log(result);
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (
       formData.email &&
@@ -55,13 +43,27 @@ function Signup() {
       formData.password &&
       formData.repassword &&
       formData.phone &&
-      formData.birthday
+      formData.birth_date
     ) {
       if (formData.password !== formData.repassword) {
         console.log("Passwords do not match");
       } else {
-        console.log("All good");
-        handelSignup(formData);
+        try {
+          const result = await axios.post(
+            "http://localhost:5001/users/signup",
+            {
+              full_name: formData.name,
+              password: formData.password,
+              email: formData.email,
+              user_phone: formData.phone,
+              birth_date: formData.birth_date,
+              user_type_id: formData.user_type_id,
+            }
+          );
+          console.log(result);
+        } catch (error) {
+          console.error("Error during signup:", error);
+        }
       }
     } else {
       console.log("Missing data");
@@ -70,19 +72,37 @@ function Signup() {
 
   return (
     <div>
-      <Box>
-        <Container sx={{ textAlign: "center", mb: 4 }}>
-          <Typography variant="h3" sx={{ fontWeight: "bold", mb: 2 }}>
+      <CssBaseline />
+      <Box
+        sx={{
+          backgroundColor: "background.paper",
+          pt: 8,
+          pb: 6,
+        }}
+      >
+        <Container maxWidth="sm">
+          <Typography
+            component="h1"
+            variant="h3"
+            align="center"
+            color="text.primary"
+            gutterBottom
+          >
             Join Our Learning Platform
           </Typography>
-          <Typography variant="h6" sx={{ mb: 4 }}>
+          <Typography
+            variant="h6"
+            align="center"
+            color="text.secondary"
+            paragraph
+          >
             Sign up today to access a variety of programming courses for all
             levels. Learn from experts and enhance your skills.
           </Typography>
         </Container>
       </Box>
       <Container sx={{ mt: -8, mb: 4 }}>
-        <Grid container spacing={4}>
+        <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} md={6}>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Paper elevation={6} sx={{ padding: 4 }}>
@@ -130,7 +150,7 @@ function Signup() {
                           onChange={handleChange}
                         />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sm={6}>
                         <TextField
                           margin="normal"
                           required
@@ -144,7 +164,7 @@ function Signup() {
                           onChange={handleChange}
                         />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sm={6}>
                         <TextField
                           margin="normal"
                           required
@@ -158,52 +178,50 @@ function Signup() {
                           onChange={handleChange}
                         />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sm={6}>
                         <TextField
                           margin="normal"
                           required
                           fullWidth
                           name="phone"
                           label="Phone Number"
+                          type="number"
                           id="phone"
                           autoComplete="phone"
                           value={formData.phone}
                           onChange={handleChange}
                         />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sm={6}>
                         <TextField
                           margin="normal"
                           required
                           fullWidth
-                          name="birthday"
-                          label="Birthday (YYYY-MM-DD)"
-                          id="birthday"
-                          autoComplete="birthday"
-                          value={formData.birthday}
+                          name="birth_date"
+                          label="Birthday"
+                          type="date"
+                          id="birth_date"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          value={formData.birth_date}
                           onChange={handleChange}
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <FormControl component="fieldset" sx={{ mt: 2 }}>
-                          <FormLabel component="legend">Role</FormLabel>
-                          <RadioGroup
-                            aria-label="role"
-                            name="role"
-                            value={formData.role}
+                        <FormControl fullWidth margin="normal">
+                          <InputLabel id="role-label">Role</InputLabel>
+                          <Select
+                            labelId="role-label"
+                            id="role"
+                            name="user_type_id"
+                            value={formData.user_type_id}
                             onChange={handleChange}
+                            label="Role"
                           >
-                            <FormControlLabel
-                              value="user"
-                              control={<Radio />}
-                              label="User"
-                            />
-                            <FormControlLabel
-                              value="teacher"
-                              control={<Radio />}
-                              label="Teacher"
-                            />
-                          </RadioGroup>
+                            <MenuItem value="1">User</MenuItem>
+                            <MenuItem value="2">Teacher</MenuItem>
+                          </Select>
                         </FormControl>
                       </Grid>
                     </Grid>
@@ -215,6 +233,14 @@ function Signup() {
                     >
                       Register
                     </Button>
+                    <Grid container justifyContent="flex-end">
+                      <Grid item>
+                        <Typography variant="body2">
+                          Already have an account?{" "}
+                          <Link to="/login">Sign in</Link>
+                        </Typography>
+                      </Grid>
+                    </Grid>
                   </Box>
                 </Box>
               </Paper>
