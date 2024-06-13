@@ -182,6 +182,7 @@ if (!result) {
         error: false,
         message: "Login Successfully",
         id: user.id,
+        role: user.user_type_id,
         token,
       });
     }

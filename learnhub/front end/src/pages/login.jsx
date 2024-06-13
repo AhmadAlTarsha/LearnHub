@@ -12,7 +12,9 @@ import {
   CssBaseline,
 } from "@mui/material";
 import SimpleSnackbar from "../components/Snackbar";
+// import jwt_decode from "jwt-decode"
 
+const decode=require("jwt-decode")
 function Login() {
   const [formData, setFormData] = useState({
     email: "",
@@ -42,8 +44,10 @@ function Login() {
 
         if (!result.data.error) {
 
-          console.log(result.data.token);
-          // localStorage.setItem("Role",result.data.role)
+          
+          localStorage.setItem("token",result?.data?.token)
+          localStorage.setItem("id",result?.data?.id)
+          localStorage.setItem("role",result?.data?.role)
 
           // localStorage.setItem(
           //   "token",
@@ -53,7 +57,8 @@ function Login() {
           //   })
           // );
 
-console.log(JSON.stringify(result.date.token));
+         
+
           setSnackBar({
             text:result.data.message,
             status:"success"
