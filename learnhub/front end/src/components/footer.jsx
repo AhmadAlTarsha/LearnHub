@@ -19,7 +19,7 @@ const Footer=()=> {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6} md={3}>
             <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
-              PP Code
+              LearnHub
             </Typography>
             <Typography>
               Discover a world of programming with our comprehensive courses designed for all levels, from beginners to professionals.
@@ -28,10 +28,10 @@ const Footer=()=> {
           
           <Grid item xs={12} sm={6} md={2}>
             <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
-              Products
+              our courses
             </Typography>
-            <Typography><Link href="#" color="inherit" underline="hover">JavaScript</Link></Typography>
-            <Typography><Link href="#" color="inherit" underline="hover">PHP</Link></Typography>
+            <Typography><Link href="#" color="inherit" underline="hover">MySql</Link></Typography>
+            <Typography><Link href="#" color="inherit" underline="hover">Next.Js</Link></Typography>
             <Typography><Link href="#" color="inherit" underline="hover">Node.js</Link></Typography>
             <Typography><Link href="#" color="inherit" underline="hover">React</Link></Typography>
           </Grid>
@@ -40,9 +40,9 @@ const Footer=()=> {
             <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
               Info
             </Typography>
-            <Typography><Link href="mailto:jamallbarhoum@gmail.com" color="inherit" underline="hover">jamallbarhoum@gmail.com</Link></Typography>
+            <Typography><Link href="mailto:jamallbarhoum@gmail.com" color="inherit" underline="hover">ahmadwael.altarsha@gmail.com</Link></Typography>
             <Typography><Link href="#" color="inherit" underline="hover">Ahmad Wael</Link></Typography>
-            <Typography><Link href="#" color="inherit" underline="hover">PP</Link></Typography>
+            <Typography><Link href="#" color="inherit" underline="hover">learnhub</Link></Typography>
           </Grid>
           
           <Grid item xs={12} sm={6} md={4}>
@@ -50,15 +50,15 @@ const Footer=()=> {
               Contact
             </Typography>
             <Typography display="flex" alignItems="center"><Home sx={{ mr: 1 }} /> Jordan</Typography>
-            <Typography display="flex" alignItems="center"><Email sx={{ mr: 1 }} /> jamallbarhoum@gmail.com</Typography>
-            <Typography display="flex" alignItems="center"><Phone sx={{ mr: 1 }} /> 0795956217</Typography>
-            <Typography display="flex" alignItems="center"><Print sx={{ mr: 1 }} /> 0795956217</Typography>
+            <Typography display="flex" alignItems="center"><Email sx={{ mr: 1 }} /> ahmadwael.altarsha@gmail.com</Typography>
+            <Typography display="flex" alignItems="center"><Phone sx={{ mr: 1 }} /> 0780743046</Typography>
+            <Typography display="flex" alignItems="center"><Print sx={{ mr: 1 }} /> 0780743046</Typography>
           </Grid>
         </Grid>
         <Divider sx={{ my: 4 }} />
         <Box textAlign="center">
           <Typography variant="body2">
-            © 2020 Copyright: <Link href="https://jamallbarhoum.netlify.app/#home" color="inherit" underline="hover">jamallbarhoum</Link>
+            © 2020 Copyright: <Link href="https://ahmadwael.netlify.app/" color="inherit" underline="hover">ahmadwael</Link>
           </Typography>
         </Box>
       </Container>

@@ -38,38 +38,7 @@ const Login = () => {
     });
   };
 
-  const handelLogin = () => {
-    // try {
-    //       const result = await axios.post("http://localhost:5001/users/login", {
-    //         email: formData.email,
-    //         password: formData.password,
-    //       });
-    //       if (!result.data.error) {
-    //         localStorage.setItem("token",result?.data?.token)
-    //         localStorage.setItem("id",result?.data?.id)
-    //         localStorage.setItem("role",result?.data?.role)
-    //         // localStorage.setItem(
-    //         //   "token",
-    //         //   JSON.stringify({
-    //         //     id: result.token.id,
-    //         //     token: result.token,
-    //         //   })
-    //         // );
-    //         setSnackBar({
-    //           text:result.data.message,
-    //           status:"success"
-    //         });
-    //         setOpenSnackbar(true)
-    //       }
-    //       console.log(result);
-    //     } catch (error) {
-    //       setSnackBar({
-    //         text:"wrong email or password",
-    //         status:"error"
-    //       });
-    //       setOpenSnackbar(true)
-    //     }
-  };
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -89,7 +58,7 @@ const Login = () => {
             });
             setOpenSnackbar(true);
           } else {
-            // nav("/courses");
+            nav("/courses");
           }
 
           //

@@ -53,7 +53,7 @@ exports.getAllCourses = async (req, res, next) => {
       });
       return res.status(200).json({
         error: false,
-        branch: allCourses,
+        course: allCourses,
         // test:result
       });
     } else if (result.length === 0) {

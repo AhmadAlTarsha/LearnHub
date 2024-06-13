@@ -1,0 +1,163 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  getAllCourses,
+  addCourse,
+  deleteCourse,
+  editCourse,
+} from "../APIS/courses";
+
+export const GetAllCourses = createAsyncThunk(
+  "branch/get/r",
+  async (payload) => {
+    return await getAllCourses();
+  }
+);
+
+export const AddBranchesState = createAsyncThunk(
+  "branch/add/r",
+  async (payload) => {
+    return await addCourse(payload);
+  }
+);
+export const EditBranchesState = createAsyncThunk(
+  "branch/edit/r",
+  async (payload) => {
+    return await editCourse(payload);
+  }
+);
+
+export const DeleteBranchesState = createAsyncThunk(
+  "branch/delete/r",
+  async (payload) => {
+    return await deleteCourse(payload);
+  }
+);
+
+export const CourseSlice = createSlice({
+  name: "courses",
+  initialState: {
+    isLoading: false,
+
+    courses: [],
+    branchUpdate: false,
+    snackBarMessage: "",
+    snackBarStatus: "",
+  },
+
+  extraReducers: (builder) => {
+    //===========================================================================Get cases
+    builder
+      .addCase(GetAllCourses.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(GetAllCourses.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.branches = action.payload;
+        state.errorMessage = {
+          isError: false,
+          message: "all courses",
+        };
+      })
+      .addCase(GetAllCourses.rejected, (state, action) => {
+        state.isLoading = true;
+      });
+    //===============================================================================Edit cases
+    builder
+      .addCase(EditBranchesState.pending, (state) => {
+        state.branchUpdate = true;
+        state.errorMessage = {
+          error: false,
+          message: "",
+        };
+      })
+      .addCase(EditBranchesState.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.snackBarMessage = action.payload.message;
+        state.branchUpdate = false;
+
+        state.snackBarStatus = "success";
+        state.branches = action.payload.branches;
+        state.errorMessage = {
+          isError: false,
+          message: " branch updated",
+        };
+      })
+      .addCase(EditBranchesState.rejected, (state, action) => {
+        state.errorMessage = {
+          isError: true,
+          // return err
+          message: `${action.payload ?? "Error update branch"}`,
+        };
+        // state.colorUpdate = false;
+        state.snackBarStatus = "error";
+        state.snackBarMessage = action.error.message;
+        state.branchUpdate = false;
+      });
+
+    // //================================================================Add cases
+    builder
+      .addCase(AddBranchesState.pending, (state) => {
+        state.branchUpdate = true;
+
+        state.errorMessage = {
+          error: false,
+          message: "",
+        };
+      })
+      .addCase(AddBranchesState.fulfilled, (state, action) => {
+        state.branchUpdate = false;
+
+        state.snackBarMessage = action.payload.message;
+        state.branches = action.payload.branches;
+        state.snackBarStatus = "success";
+        state.errorMessage = {
+          isError: true,
+          message: "Added Success",
+        };
+      })
+      .addCase(AddBranchesState.rejected, (state, action) => {
+        state.errorMessage = {
+          isError: true,
+          // return err
+          message: `${action.payload ?? "Error Adding Color"}`,
+        };
+        state.branchUpdate = false;
+        state.snackBarStatus = "error";
+        state.snackBarMessage = action.error.message;
+      });
+
+    //===================================================================Delete cases
+    builder
+      .addCase(DeleteBranchesState.pending, (state) => {
+        state.branchUpdate = true;
+
+        state.errorMessage = {
+          error: false,
+          message: "",
+        };
+      })
+      .addCase(DeleteBranchesState.fulfilled, (state, action) => {
+        state.branchUpdate = false;
+
+        state.errorMessage = {
+          isError: false,
+          message: "",
+        };
+        state.branches = action.payload.branches;
+        state.snackBarMessage = action.payload.message;
+        state.snackBarStatus = "success";
+      })
+      .addCase(DeleteBranchesState.rejected, (state, action) => {
+        state.errorMessage = {
+          isError: true,
+          // return err
+          message: `${action.error.message || "Error Deleting branches"}`,
+        };
+
+        state.snackBarMessage = action.error.message;
+        state.snackBarStatus = "error";
+      });
+  },
+});
+
+export default CourseSlice.reducer;
