@@ -11,12 +11,19 @@ import {
   Paper,
   CssBaseline,
 } from "@mui/material";
+import SimpleSnackbar from "../components/Snackbar";
 
 function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [Snackbar,setSnackBar]=useState({
+    text:"",
+    status:""
+  })
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -26,20 +33,58 @@ function Login() {
     });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (formData.email && formData.password) {
-      try {
+  const handelLogin=async()=>{
+  try {
         const result = await axios.post("http://localhost:5001/users/login", {
           email: formData.email,
           password: formData.password,
         });
+
+        if (!result.data.error) {
+
+          console.log(result.data.token);
+          // localStorage.setItem("Role",result.data.role)
+
+          // localStorage.setItem(
+          //   "token",
+          //   JSON.stringify({
+          //     id: result.token.id,
+          //     token: result.token,
+          //   })
+          // );
+
+console.log(JSON.stringify(result.date.token));
+          setSnackBar({
+            text:result.data.message,
+            status:"success"
+          });
+  
+          setOpenSnackbar(true)
+        }
         console.log(result);
       } catch (error) {
-        console.error("Error during login:", error);
+        setSnackBar({
+          text:"wrong email or password",
+          status:"error"
+        });
+
+        setOpenSnackbar(true)
       }
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (formData.email && formData.password) {
+    handelLogin()
     } else {
-      console.log("Missing email or password");
+
+      setSnackBar({
+        text:"Missing email or password",
+        status:"error"
+      });
+
+      setOpenSnackbar(true)
+ 
     }
   };
 
@@ -147,6 +192,12 @@ function Login() {
           </Grid>
         </Grid>
       </Container>
+      <SimpleSnackbar
+        open={openSnackbar}
+        setOpen={setOpenSnackbar}
+        text={Snackbar.text}
+        status={Snackbar.status}
+      />
     </div>
   );
 }
