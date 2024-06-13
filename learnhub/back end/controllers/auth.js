@@ -183,6 +183,7 @@ if (!result) {
         message: "Login Successfully",
         id: user.id,
         role: user.user_type_id,
+        full_name:user.full_name,
         token,
       });
     }

@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { UserLogin } from "../service/Redux/auth";
+
 import axios from "axios";
 import {
   Box,
@@ -12,19 +15,19 @@ import {
   CssBaseline,
 } from "@mui/material";
 import SimpleSnackbar from "../components/Snackbar";
-// import jwt_decode from "jwt-decode"
 
-const decode=require("jwt-decode")
-function Login() {
+const Login = () => {
+  const dispatch = useDispatch();
+  const nav = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const [Snackbar,setSnackBar]=useState({
-    text:"",
-    status:""
-  })
+  const [Snackbar, setSnackBar] = useState({
+    text: "",
+    status: "",
+  });
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleChange = (event) => {
@@ -35,61 +38,73 @@ function Login() {
     });
   };
 
-  const handelLogin=async()=>{
-  try {
-        const result = await axios.post("http://localhost:5001/users/login", {
-          email: formData.email,
-          password: formData.password,
-        });
-
-        if (!result.data.error) {
-
-          
-          localStorage.setItem("token",result?.data?.token)
-          localStorage.setItem("id",result?.data?.id)
-          localStorage.setItem("role",result?.data?.role)
-
-          // localStorage.setItem(
-          //   "token",
-          //   JSON.stringify({
-          //     id: result.token.id,
-          //     token: result.token,
-          //   })
-          // );
-
-         
-
-          setSnackBar({
-            text:result.data.message,
-            status:"success"
-          });
-  
-          setOpenSnackbar(true)
-        }
-        console.log(result);
-      } catch (error) {
-        setSnackBar({
-          text:"wrong email or password",
-          status:"error"
-        });
-
-        setOpenSnackbar(true)
-      }
-  }
+  const handelLogin = () => {
+    // try {
+    //       const result = await axios.post("http://localhost:5001/users/login", {
+    //         email: formData.email,
+    //         password: formData.password,
+    //       });
+    //       if (!result.data.error) {
+    //         localStorage.setItem("token",result?.data?.token)
+    //         localStorage.setItem("id",result?.data?.id)
+    //         localStorage.setItem("role",result?.data?.role)
+    //         // localStorage.setItem(
+    //         //   "token",
+    //         //   JSON.stringify({
+    //         //     id: result.token.id,
+    //         //     token: result.token,
+    //         //   })
+    //         // );
+    //         setSnackBar({
+    //           text:result.data.message,
+    //           status:"success"
+    //         });
+    //         setOpenSnackbar(true)
+    //       }
+    //       console.log(result);
+    //     } catch (error) {
+    //       setSnackBar({
+    //         text:"wrong email or password",
+    //         status:"error"
+    //       });
+    //       setOpenSnackbar(true)
+    //     }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (formData.email && formData.password) {
-    handelLogin()
-    } else {
+      // handelLogin();
+      dispatch(
+        UserLogin({
+          email: formData.email,
+          password: formData.password,
+        })
+      )
+        .then((res) => {
+          if (!res.payload) {
+            setSnackBar({
+              text: "wrong email or password",
+              status: "error",
+            });
+            setOpenSnackbar(true);
+          } else {
+            // nav("/courses");
+          }
 
+          //
+        })
+        .catch((error) => {
+
+          console.log(error);
+        });
+    } else {
       setSnackBar({
-        text:"Missing email or password",
-        status:"error"
+        text: "Missing email or password",
+        status: "error",
       });
 
-      setOpenSnackbar(true)
- 
+      setOpenSnackbar(true);
     }
   };
 
@@ -119,7 +134,8 @@ function Login() {
             color="text.secondary"
             paragraph
           >
-            Log in to your account to continue learning and enhancing your skills.
+            Log in to your account to continue learning and enhancing your
+            skills.
           </Typography>
         </Container>
       </Box>
@@ -205,6 +221,6 @@ function Login() {
       />
     </div>
   );
-}
+};
 
 export default Login;

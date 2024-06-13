@@ -1,19 +1,24 @@
-
 import { AppBar, Toolbar, Typography, Button, Box, Link } from '@mui/material';
 import { useNavigate } from 'react-router';
 
-
+import {  useSelector,useDispatch } from "react-redux";
+import{setUser} from "../service/Redux/auth"
 
 function Navbar() {
-  const redirect = useNavigate();
+ const redirect = useNavigate();
+const dispatch=useDispatch()
+ dispatch(setUser())
+
+
+  const authSelector = useSelector((state) => {
+    return state.auth;
+  });
 
  
 
   const handleLogout = () => {
     localStorage.clear();
-    // setIsLogin(false);
-    // setToken(null);
-    // redirect('/');
+    redirect('/');
   };
 
   return (
@@ -25,33 +30,39 @@ function Navbar() {
           </Link>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Button color="inherit" onClick={()=>{redirect("/")}} >
+          <Button color="inherit" onClick={() => { redirect("/") }}>
             Home
           </Button>
-          {!false ? (
+          {!authSelector.isLogin ? (
             <>
-              <Button color="inherit" onClick={()=>{redirect("/login")}}>
+              <Button color="inherit" onClick={() => { redirect("/login") }}>
                 Login
               </Button>
-              <Button color="inherit" onClick={()=>{redirect("/signup")}} >
-                signUp for free
+              <Button color="inherit" onClick={() => { redirect("/signup") }}>
+                Sign Up for Free
+              </Button>
+              <Button color="inherit" onClick={handleLogout}>
+                Logout
               </Button>
             </>
           ) : (
             <>
-              <Button color="inherit">
+              <Button color="inherit" onClick={() => { redirect("/courses") }}>
                 Courses
               </Button>
-              {true * 1 === 2 ? (
-                <Button color="inherit" >
+              {authSelector.role==2 ? (
+                <Button color="inherit" onClick={() => { redirect("/teacher-dashboard") }}>
                   Teacher Dashboard
                 </Button>
               ) : (
-                <Button color="inherit">Student</Button>
+                <Button color="inherit">
+                  Student
+                </Button>
               )}
-              <Button color="inherit" onClick={handleLogout}>
-                Logout
-              </Button>
+              {/* <Button color="inherit" onClick={() => { redirect("/my-courses") }}>
+                My Courses
+              </Button> */}
+              
             </>
           )}
         </Box>

@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
 export default function SimpleSnackbar({ open, setOpen, text, status }) {
-  console.log(text, status);
+
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {

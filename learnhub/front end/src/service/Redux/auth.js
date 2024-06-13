@@ -1,9 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { UserLogin } from "../../service/APIS/auth";
 
-export const loginUser = createAsyncThunk("user/login", async (credentials) => {
-  return await UserLogin(credentials);
-});
+import { Login } from "../../service/APIS/auth";
+
+export const UserLogin = createAsyncThunk("user/login", async (payload) => {
+
+    return await Login(payload);
+  });
+  
 
 export const authSlice = createSlice({
   name: "user",
@@ -16,10 +19,10 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      .addCase(loginUser.pending, (state) => {
+      .addCase(UserLogin.pending, (state) => {
         
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
+      .addCase(UserLogin.fulfilled, (state, action) => {
      
 
         localStorage.setItem(
@@ -27,19 +30,35 @@ export const authSlice = createSlice({
           JSON.stringify({
             id: action?.payload?.id,
             token: action?.payload?.token,
+            isLoggedIn: true,
+            roleId:action?.payload?.role
           })
         );
 
-        localStorage.setItem(
-          "localUser",
-          JSON.stringify({
-            id: action?.payload?.id,
-            token: action?.payload?.token,
-            isLoggedIn: true,
-          })
-        );
+localStorage.setItem("id",action.payload.id)
+localStorage.setItem("role",action.payload.role)
+localStorage.setItem("name",action.payload.full_name)
+localStorage.setItem("isLogin",true)
+
+
+state.id=localStorage.getItem("id")
+state.role=localStorage.getItem("role")
+state.full_name=localStorage.getItem("name")
+state.isLogin=localStorage.getItem("isLogin")
+
+
+        // localStorage.setItem(
+        //   "localUser",
+        //   JSON.stringify({
+        //     id: action?.payload?.id,
+        //     token: action?.payload?.token,
+        //     isLoggedIn: true,
+        //   })
+        // );
       })
-      .addCase(loginUser.rejected, (state, action) => {
+      .addCase(UserLogin.rejected, (state, action) => {
+
+        console.log("error");
         state.errorMessage = {
           error: true,
           message: "Email or Password is wrong",
@@ -48,22 +67,27 @@ export const authSlice = createSlice({
   },
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+   
+        state.id=localStorage.getItem("id")
+        state.role=localStorage.getItem("role")
+        state.full_name=localStorage.getItem("name")
+        state.isLogin=localStorage.getItem("isLogin")
+
     },
     setLogout: (state) => {
-      state.user = {
-        id: 0,
-        fullName: "",
-        nickName: "",
-        token: "",
-        email: "",
-        image: "",
-        role: 0,
-        region: 0,
-      };
+    //   state.user = {
+    //     id: 0,
+    //     fullName: "",
+    //     nickName: "",
+    //     token: "",
+    //     email: "",
+    //     image: "",
+    //     role: 0,
+    //     region: 0,
+    //   };
 
-      localStorage.removeItem("localUser");
-      localStorage.removeItem("token");
+    //   localStorage.removeItem("localUser");
+    //   localStorage.removeItem("token");
     },
   },
 });
