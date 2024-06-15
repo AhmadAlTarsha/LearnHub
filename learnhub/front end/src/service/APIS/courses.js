@@ -4,10 +4,13 @@ const url = "http://localhost:5001/";
 
 export const getAllCourses = async () => {
     try {
-      const result = await axios.get(`${url}courses`);
+      const result = await axios.get(`${url}course`);
+
+     
   
       if (!result?.data?.error) {
-        return result?.data?.course;
+        return result?.data?.course
+        ;
       }
     } catch (err) {
       console.error("ERROR ====> ", err);

@@ -52,11 +52,8 @@ export const CourseSlice = createSlice({
       })
       .addCase(GetAllCourses.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.branches = action.payload;
-        state.errorMessage = {
-          isError: false,
-          message: "all courses",
-        };
+        state.courses = action.payload;
+       
       })
       .addCase(GetAllCourses.rejected, (state, action) => {
         state.isLoading = true;
