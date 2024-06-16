@@ -17,6 +17,22 @@ export const getAllCourses = async () => {
       throw err.response.data.message;
     }
   };
+export const getCoursesById = async (courseId) => {
+
+    try {
+      const result = await axios.get(`${url}course/${courseId}`);
+
+ 
+  
+      if (!result?.data?.error) {
+        return result?.data?.course
+        ;
+      }
+    } catch (err) {
+      console.error("ERROR ====> ", err);
+      throw err.response.data.message;
+    }
+  };
 
 
   export const deleteCourse = async (payload) => {

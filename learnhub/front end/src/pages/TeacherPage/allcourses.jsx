@@ -18,19 +18,20 @@ import {
   Box,
 } from "@mui/material";
 
-import AddModal from "../../Components/AddModal";
-import SimpleSnackbar from "../../Components/Snackbar";
-import ConfirmedAndEditDialog from "../../Components/ConfirmedDialog";
-import {
-  AddBranchesState,
-  DeleteBranchesState,
-  EditBranchesState,
-} from "../../Service/Redux/res_Branches";
+import AddModal from "../../components/AddModal";
+import SimpleSnackbar from "../../components/Snackbar";
+import ConfirmedAndEditDialog from "../../components/ConfirmedDialog";
+import EditModal from "../../components/EditModal";
+// import {
+//   AddBranchesState,
+//   DeleteBranchesState,
+//   EditBranchesState,
+// } from "../../Service/Redux/res_Branches";
 
 import { styled } from "@mui/material/styles";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditModal from "../../Components/EditModal";
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -38,11 +39,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   fontWeight: "bold",
 }));
 
-const BranchesList = ({
-  branches,
+const CourseList = ({
+  courses,
   handleEdit,
-  branchUpdate,
-  BranchSelector,
+  courseUpdate,
+  CourseSelector,
   itemName,
 }) => {
   const [showAddModal, setShowAddModal] = useState(false);
@@ -60,7 +61,7 @@ const BranchesList = ({
 
   const handleShowAddModel = () => setShowAddModal(true);
   const handleCloseAddModel = () => setShowAddModal(false);
-
+console.log(courses);
   const handleShowEditModel = () => setShowEditModal(true);
   const handleCloseEditModel = () => {
     setShowEditModal(false);
@@ -93,27 +94,27 @@ const BranchesList = ({
         setOpenSnackbar(true);
       }, 1000);
     } else {
-      dispatch(AddBranchesState({ name, phone, street_name }));
-      // setSnackBarText("branch added successfully");
-      // setSnackBarStatus("success");
-      setTimeout(() => {
-        setOpenSnackbar(true);
-      }, 1000);
+      // dispatch(AddBranchesState({ name, phone, street_name }));
+      // // setSnackBarText("branch added successfully");
+      // // setSnackBarStatus("success");
+      // setTimeout(() => {
+      //   setOpenSnackbar(true);
+      // }, 1000);
     }
 
     handleCloseAddModel();
     setContent(emptyContent);
   };
   //-------------------------------------------------------------------------------------this function delete selected branch from db
-  const deleteCurrentBranch = (branchId, active) => {
-    dispatch(
-      DeleteBranchesState({
-        branchId,
-        active: active,
-      })
-    );
-    handleCloseConfirmedDialog();
-  };
+  // const deleteCurrentBranch = (branchId, active) => {
+  //   dispatch(
+  //     DeleteBranchesState({
+  //       branchId,
+  //       active: active,
+  //     })
+  //   );
+  //   handleCloseConfirmedDialog();
+  // };
   //-------------------------------------------------------------------------------------this function edit selected branch from db
   const updateCurrentBranch =  (branchId) => {
 
@@ -131,7 +132,7 @@ const BranchesList = ({
       //   setOpenSnackbar(true);
       // }, 1000);
     } else {
-      dispatch(EditBranchesState({ branchId, content }));
+      // dispatch(EditBranchesState({ branchId, content }));
     }
 
     handleCloseEditModel();
@@ -140,7 +141,7 @@ const BranchesList = ({
     <Box sx={{ backgroundColor: "lightgray", minHeight: "100vh", padding: 3 }}>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={branchUpdate}
+        open={courseUpdate}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -163,7 +164,7 @@ const BranchesList = ({
           Add Branch
         </Button>
       </Box>
-      {!(branches?.length === 0) ? (
+      {!(courses?.length === 0) ? (
         <TableContainer component={Paper} sx={{ marginTop: 3 }}>
           <Table aria-label="branches table">
             <TableHead>
@@ -175,7 +176,7 @@ const BranchesList = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {branches?.map((branch) => (
+              {courses?.map((branch) => (
                 <TableRow key={branch.id}>
                   <TableCell>{branch.name}</TableCell>
                   <TableCell>{branch.created_at}</TableCell>
@@ -228,20 +229,20 @@ const BranchesList = ({
         </Paper>
       )}
 
-      <ConfirmedAndEditDialog
+      {/* <ConfirmedAndEditDialog
         handleCloseDialog={handleCloseConfirmedDialog}
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
-        fun={deleteCurrentBranch}
+        // fun={deleteCurrentBranch}
         itemId={branchData.branchId}
         isDeleted={branchData.active}
         itemName={itemName}
-        snackBarText={BranchSelector.snackBarMessage}
-        snackBarStatus={BranchSelector.snackBarStatus}
+        snackBarText={CourseSelector.snackBarMessage}
+        snackBarStatus={CourseSelector.snackBarStatus}
       />
       <AddModal
-        snackBarText={BranchSelector.snackBarMessage}
-        snackBarStatus={BranchSelector.snackBarStatus}
+        snackBarText={CourseSelector.snackBarMessage}
+        snackBarStatus={CourseSelector.snackBarStatus}
         show={showAddModal}
         setShow={setShowAddModal}
         handleShowModel={handleShowAddModel}
@@ -253,8 +254,8 @@ const BranchesList = ({
       />
 
       <EditModal
-        snackBarText={BranchSelector.snackBarMessage}
-        snackBarStatus={BranchSelector.snackBarStatus}
+        snackBarText={CourseSelector.snackBarMessage}
+        snackBarStatus={CourseSelector.snackBarStatus}
         show={showEditModal}
         setShow={setShowEditModal}
         handleShowModel={handleShowEditModel}
@@ -269,14 +270,14 @@ const BranchesList = ({
       <SimpleSnackbar
         open={openSnackbar}
         setOpen={setOpenSnackbar}
-        text={BranchSelector.snackBarMessage}
-        status={BranchSelector.snackBarStatus}
-      />
+        text={CourseSelector.snackBarMessage}
+        status={CourseSelector.snackBarStatus}
+      /> */}
     </Box>
   );
 };
 
-export default BranchesList;
+export default CourseList;
 
 {
   /* <Dialog open={openAddDialog} onClose={handleClose}>

@@ -4,6 +4,7 @@ import {
   addCourse,
   deleteCourse,
   editCourse,
+  getCoursesById
 } from "../APIS/courses";
 
 export const GetAllCourses = createAsyncThunk(
@@ -12,21 +13,27 @@ export const GetAllCourses = createAsyncThunk(
     return await getAllCourses();
   }
 );
+export const GetCoursesById = createAsyncThunk(
+  "branch/id/get/r",
+  async (payload) => {
+    return await getCoursesById(payload);
+  }
+);
 
-export const AddBranchesState = createAsyncThunk(
+export const AddCourseState = createAsyncThunk(
   "branch/add/r",
   async (payload) => {
     return await addCourse(payload);
   }
 );
-export const EditBranchesState = createAsyncThunk(
+export const EditCourseState = createAsyncThunk(
   "branch/edit/r",
   async (payload) => {
     return await editCourse(payload);
   }
 );
 
-export const DeleteBranchesState = createAsyncThunk(
+export const DeleteCourseState = createAsyncThunk(
   "branch/delete/r",
   async (payload) => {
     return await deleteCourse(payload);
@@ -45,29 +52,46 @@ export const CourseSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    //===========================================================================Get cases
+    //===========================================================================GetAll cases
+    // builder
+    //   .addCase(GetAllCourses.pending, (state) => {
+    //     state.isLoading = true;
+    //   })
+    //   .addCase(GetAllCourses.fulfilled, (state, action) => {
+    //     state.isLoading = false;
+    //     state.courses = action.payload;
+       
+    //   })
+    //   .addCase(GetAllCourses.rejected, (state, action) => {
+    //     state.isLoading = true;
+    //   });
+
+
+    //==========================================================================Get By Id
     builder
-      .addCase(GetAllCourses.pending, (state) => {
+      .addCase(GetCoursesById.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(GetAllCourses.fulfilled, (state, action) => {
+      .addCase(GetCoursesById.fulfilled, (state, action) => {
+
+        console.log(action.payload);
         state.isLoading = false;
         state.courses = action.payload;
        
       })
-      .addCase(GetAllCourses.rejected, (state, action) => {
+      .addCase(GetCoursesById.rejected, (state, action) => {
         state.isLoading = true;
       });
     //===============================================================================Edit cases
     builder
-      .addCase(EditBranchesState.pending, (state) => {
+      .addCase(EditCourseState.pending, (state) => {
         state.branchUpdate = true;
         state.errorMessage = {
           error: false,
           message: "",
         };
       })
-      .addCase(EditBranchesState.fulfilled, (state, action) => {
+      .addCase(EditCourseState.fulfilled, (state, action) => {
         console.log(action.payload);
         state.snackBarMessage = action.payload.message;
         state.branchUpdate = false;
@@ -79,7 +103,7 @@ export const CourseSlice = createSlice({
           message: " branch updated",
         };
       })
-      .addCase(EditBranchesState.rejected, (state, action) => {
+      .addCase(EditCourseState.rejected, (state, action) => {
         state.errorMessage = {
           isError: true,
           // return err
@@ -93,7 +117,7 @@ export const CourseSlice = createSlice({
 
     // //================================================================Add cases
     builder
-      .addCase(AddBranchesState.pending, (state) => {
+      .addCase(AddCourseState.pending, (state) => {
         state.branchUpdate = true;
 
         state.errorMessage = {
@@ -101,7 +125,7 @@ export const CourseSlice = createSlice({
           message: "",
         };
       })
-      .addCase(AddBranchesState.fulfilled, (state, action) => {
+      .addCase(AddCourseState.fulfilled, (state, action) => {
         state.branchUpdate = false;
 
         state.snackBarMessage = action.payload.message;
@@ -112,7 +136,7 @@ export const CourseSlice = createSlice({
           message: "Added Success",
         };
       })
-      .addCase(AddBranchesState.rejected, (state, action) => {
+      .addCase(AddCourseState.rejected, (state, action) => {
         state.errorMessage = {
           isError: true,
           // return err
@@ -125,7 +149,7 @@ export const CourseSlice = createSlice({
 
     //===================================================================Delete cases
     builder
-      .addCase(DeleteBranchesState.pending, (state) => {
+      .addCase(DeleteCourseState.pending, (state) => {
         state.branchUpdate = true;
 
         state.errorMessage = {
@@ -133,7 +157,7 @@ export const CourseSlice = createSlice({
           message: "",
         };
       })
-      .addCase(DeleteBranchesState.fulfilled, (state, action) => {
+      .addCase(DeleteCourseState.fulfilled, (state, action) => {
         state.branchUpdate = false;
 
         state.errorMessage = {
@@ -144,7 +168,7 @@ export const CourseSlice = createSlice({
         state.snackBarMessage = action.payload.message;
         state.snackBarStatus = "success";
       })
-      .addCase(DeleteBranchesState.rejected, (state, action) => {
+      .addCase(DeleteCourseState.rejected, (state, action) => {
         state.errorMessage = {
           isError: true,
           // return err
