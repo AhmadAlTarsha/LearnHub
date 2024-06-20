@@ -82,7 +82,7 @@ console.log(courses);
     name: "",
     description: "",
   };
-  const [courseData, setBranchData] = useState({
+  const [courseData, setCourseData] = useState({
     courseId: 0,
     active: 0,
   });
@@ -118,15 +118,15 @@ console.log(description,name);
     setContent(emptyContent);
   };
   //-------------------------------------------------------------------------------------this function delete selected branch from db
-  // const deleteCurrentBranch = (branchId, active) => {
-  //   dispatch(
-  //     DeleteBranchesState({
-  //       branchId,
-  //       active: active,
-  //     })
-  //   );
-  //   handleCloseConfirmedDialog();
-  // };
+  const deleteCurrentCourse = (courseId, active) => {
+    dispatch(
+      DeleteCourseState({
+        courseId,
+        active: active,
+      })
+    );
+    handleCloseConfirmedDialog();
+  };
   //-------------------------------------------------------------------------------------this function edit selected branch from db
   const updateCurrentBranch = (branchId) => {
     if (
@@ -200,7 +200,7 @@ console.log(description,name);
                             name: course.name,
                             description: course.description,
                           });
-                          setBranchData({
+                          setCourseData({
                             courseId: course.id,
                             active: course.active,
                           });
@@ -214,8 +214,8 @@ console.log(description,name);
                       <IconButton
                         color="secondary"
                         onClick={() => {
-                          setBranchData({
-                            branchId: course.id,
+                          setCourseData({
+                            courseId: course.id,
                             active: 0,
                           });
                           handleClickOpenConfirmDialog();
@@ -242,8 +242,8 @@ console.log(description,name);
         handleCloseDialog={handleCloseConfirmedDialog}
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
-        // fun={deleteCurrentBranch}
-        itemId={courseData.branchId}
+        fun={deleteCurrentCourse}
+        itemId={courseData.courseId}
         isDeleted={courseData.active}
         itemName={itemName}
         snackBarText={CourseSelector?.snackBarMessage}

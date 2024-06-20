@@ -81,12 +81,12 @@ export const CourseSlice = createSlice({
        
       })
       .addCase(GetCoursesById.rejected, (state, action) => {
-        state.isLoading = true;
+        state.isLoading = false;
       });
     //===============================================================================Edit cases
     builder
       .addCase(EditCourseState.pending, (state) => {
-        state.branchUpdate = true;
+        state.courseUpdate = true;
         state.errorMessage = {
           error: false,
           message: "",
@@ -95,10 +95,10 @@ export const CourseSlice = createSlice({
       .addCase(EditCourseState.fulfilled, (state, action) => {
         console.log(action.payload);
         state.snackBarMessage = action.payload.message;
-        state.branchUpdate = false;
+        state.courseUpdate = false;
 
         state.snackBarStatus = "success";
-        state.branches = action.payload.branches;
+        state.courses = action.payload.course;
         state.errorMessage = {
           isError: false,
           message: " branch updated",
@@ -113,13 +113,13 @@ export const CourseSlice = createSlice({
         // state.colorUpdate = false;
         state.snackBarStatus = "error";
         state.snackBarMessage = action.error.message;
-        state.branchUpdate = false;
+        state.courseUpdate = false;
       });
 
     // //================================================================Add cases
     builder
       .addCase(AddCourseState.pending, (state) => {
-        state.branchUpdate = true;
+        state.courseUpdate = true;
 
         state.errorMessage = {
           error: false,
@@ -144,7 +144,7 @@ export const CourseSlice = createSlice({
           // return err
           message: `${action.payload ?? "Error Adding Color"}`,
         };
-        state.branchUpdate = false;
+        state.courseUpdate = false;
         state.snackBarStatus = "error";
         state.snackBarMessage = action.error.message;
       });
@@ -152,7 +152,7 @@ export const CourseSlice = createSlice({
     //===================================================================Delete cases
     builder
       .addCase(DeleteCourseState.pending, (state) => {
-        state.branchUpdate = true;
+        state.courseUpdate = true;
 
         state.errorMessage = {
           error: false,
@@ -160,13 +160,13 @@ export const CourseSlice = createSlice({
         };
       })
       .addCase(DeleteCourseState.fulfilled, (state, action) => {
-        state.branchUpdate = false;
+        state.courseUpdate = false;
 
         state.errorMessage = {
           isError: false,
           message: "",
         };
-        state.branches = action.payload.branches;
+        state.courses = action.payload.course;
         state.snackBarMessage = action.payload.message;
         state.snackBarStatus = "success";
       })

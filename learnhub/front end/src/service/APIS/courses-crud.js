@@ -36,11 +36,18 @@ export const getCoursesById = async (courseId) => {
 
 
   export const deleteCourse = async (payload) => {
+
+    console.log(payload);
     try {
-      const result = await axios.delete(`${url}courses/${payload.branchId}`);
+      const result = await axios.delete(`${url}course/${localStorage.getItem("id")}`, {
+        headers: {
+          Authorization: `Bearer ${token?.token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
   
       if (!result.data?.error) {
-        const course = await getAllCourses();
+        const course = await getCoursesById(payload.courseId);
   
         return {
           message: result.data?.message,
