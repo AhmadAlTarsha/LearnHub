@@ -14,7 +14,9 @@ const Course = () => {
   const CourseSelector = useSelector((state) => {
     return state.courses;
   });
-const courses=CourseSelector?.courses
+const courses=CourseSelector?.courses?.filter((item)=>{
+  return item.active===1
+})
 console.log(courses);
   // !-----------------------------------------------------------side effect
   useEffect(() => {

@@ -89,7 +89,7 @@ console.log(courses);
 
   //-------------------------------------------------------------------------------------this function Add new course to the db
   const addNewCourse = async ({ description, name }) => {
-console.log(description,name);
+
   
     if (!name.trim() &&!description.trim()) {
       console.log("no");
