@@ -38,6 +38,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   fontWeight: "bold",
 }));
 
+
+
 const CourseList = ({
   courses,
   handleEdit,
@@ -46,7 +48,7 @@ const CourseList = ({
   itemName,
   teacherName,
 }) => {
-
+console.log(courses);
   console.log(CourseSelector);
   const [showAddModal, setShowAddModal] = useState(false);
 
@@ -90,12 +92,14 @@ const CourseList = ({
 console.log(description,name);
   
     if (!name.trim() &&!description.trim()) {
+      console.log("no");
       setSnackBarText("some info is undefine");
       setSnackBarStatus("error");
       setTimeout(() => {
         setOpenSnackbar(true);
       }, 1000);
     } else {
+      console.log("yes");
       dispatch(
         AddCourseState({
           name: name,
@@ -242,12 +246,12 @@ console.log(description,name);
         itemId={courseData.branchId}
         isDeleted={courseData.active}
         itemName={itemName}
-        snackBarText={CourseSelector.snackBarMessage}
-        snackBarStatus={CourseSelector.snackBarStatus}
+        snackBarText={CourseSelector?.snackBarMessage}
+        snackBarStatus={CourseSelector?.snackBarStatus}
       />
       <AddModal
-        snackBarText={CourseSelector.snackBarMessage}
-        snackBarStatus={CourseSelector.snackBarStatus}
+        snackBarText={CourseSelector?.snackBarMessage}
+        snackBarStatus={CourseSelector?.snackBarStatus}
         show={showAddModal}
         setShow={setShowAddModal}
         handleShowModel={handleShowAddModel}
@@ -275,8 +279,8 @@ console.log(description,name);
       <SimpleSnackbar
         open={openSnackbar}
         setOpen={setOpenSnackbar}
-        text={CourseSelector.snackBarMessage}
-        status={CourseSelector.snackBarStatus}
+        text={CourseSelector?.snackBarMessage||snackBarText}
+        status={CourseSelector?.snackBarStatus||snackBarStatus}
       />
     </Box>
   );

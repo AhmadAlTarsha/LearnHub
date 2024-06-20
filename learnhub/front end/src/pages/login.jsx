@@ -58,7 +58,7 @@ const Login = () => {
             });
             setOpenSnackbar(true);
           } else {
-            nav("/courses");
+            nav("/all-courses");
           }
 
           //

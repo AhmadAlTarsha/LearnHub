@@ -5,7 +5,7 @@ import {
   deleteCourse,
   editCourse,
   getCoursesById
-} from "../APIS/courses";
+} from "../APIS/courses-crud";
 
 export const GetAllCourses = createAsyncThunk(
   "branch/get/r",
@@ -16,6 +16,7 @@ export const GetAllCourses = createAsyncThunk(
 export const GetCoursesById = createAsyncThunk(
   "branch/id/get/r",
   async (payload) => {
+
     return await getCoursesById(payload);
   }
 );
@@ -46,7 +47,7 @@ export const CourseSlice = createSlice({
     isLoading: false,
 
     courses: [],
-    branchUpdate: false,
+    courseUpdate: false,
     snackBarMessage: "",
     snackBarStatus: "",
   },
@@ -126,10 +127,11 @@ export const CourseSlice = createSlice({
         };
       })
       .addCase(AddCourseState.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.branchUpdate = false;
 
         state.snackBarMessage = action.payload.message;
-        state.branches = action.payload.branches;
+        state.courses = action.payload.course;
         state.snackBarStatus = "success";
         state.errorMessage = {
           isError: true,

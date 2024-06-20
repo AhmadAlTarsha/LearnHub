@@ -60,7 +60,7 @@ function Navbar() {
               <Button
                 color="inherit"
                 onClick={() => {
-                  redirect("/courses");
+                  redirect("/all-courses");
                 }}
               >
                 Courses

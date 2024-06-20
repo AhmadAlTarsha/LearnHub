@@ -19,11 +19,9 @@ export const getAllCourses = async () => {
     }
   };
 export const getCoursesById = async (courseId) => {
-console.log(courseId);
     try {
       const result = await axios.get(`${url}course/teacher/${courseId}`);
 
- console.log(result);
   
       if (!result?.data?.error) {
         return result?.data?.result
@@ -70,7 +68,9 @@ console.log(courseId);
       });
   
       if (!result.data?.error) {
-        const course = await getAllCourses();
+
+       
+        const course = await getCoursesById(payload.user_id);
   
         return {
           message: result.data?.message,

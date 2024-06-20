@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Container, Typography } from "@mui/material";
-import CourseList from "./allcourses";
+import CourseList from "./allTeacherCourses";
 import CenteredCircularProgress from "../../components/Loader";
 
 import {  GetCoursesById} from "../../service/Redux/courses";

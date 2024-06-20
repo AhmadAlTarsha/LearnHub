@@ -5,8 +5,8 @@ import WelcomePage from "../components/welcome";
 import HomePage from "../pages/home";
 import Login from "../pages/login";
 import Signup from "../pages/signup";
-import Allcourses from "../pages/TeacherPage/allcourses";
-import Course from "../pages/TeacherPage/courses";
+import Courses from "../pages/StudentPage/scourses";
+import TeacherCourses from "../pages/TeacherPage/coursesList";
 
 export const router = createBrowserRouter([
   {
@@ -22,17 +22,17 @@ export const router = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
-      // {
-      //   path: "admin",
-      //   element: <Admin />,
-      // },
+      {
+        path: "all-courses",
+        element: <Courses />,
+      },
       {
         path: "signup",
         element: <Signup />,
       },
       {
-        path: "courses",
-        element: <Course />,
+        path: "teacher-dashboard",
+        element: <TeacherCourses />,
       },
     
     ],
