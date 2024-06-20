@@ -14,9 +14,8 @@ const Course = () => {
   const CourseSelector = useSelector((state) => {
     return state.courses;
   });
-// const courses=CourseSelector.courses
- console.log(CourseSelector);
-
+const courses=CourseSelector?.courses
+console.log(courses);
   // !-----------------------------------------------------------side effect
   useEffect(() => {
     dispatch(GetCoursesById(localStorage.getItem("id")));
@@ -28,12 +27,14 @@ const Course = () => {
           <Typography variant="h4" gutterBottom>
             Teacher Courses
           </Typography>
-          {/* <CourseList
+          <CourseList
+          teacherName={localStorage.getItem("name")}
+          user_id={localStorage.getItem("id")}
             courses={courses}
-            branchUpdate={CourseSelector.courseUpdate}
-            BranchSelector={CourseSelector}
+            courseUpdateUpdate={CourseSelector.courseUpdate}
+            CourseSelector={CourseSelector}
             itemName={itemName}
-          /> */}
+          />
         </Container>
       ) : (
         <CenteredCircularProgress />

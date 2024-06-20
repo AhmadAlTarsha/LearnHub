@@ -22,16 +22,15 @@ import AddModal from "../../components/AddModal";
 import SimpleSnackbar from "../../components/Snackbar";
 import ConfirmedAndEditDialog from "../../components/ConfirmedDialog";
 import EditModal from "../../components/EditModal";
-// import {
-//   AddBranchesState,
-//   DeleteBranchesState,
-//   EditBranchesState,
-// } from "../../Service/Redux/res_Branches";
+import {
+  AddCourseState,
+  DeleteCourseState,
+  EditCourseState,
+} from "../../service/Redux/courses";
 
 import { styled } from "@mui/material/styles";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -45,7 +44,10 @@ const CourseList = ({
   courseUpdate,
   CourseSelector,
   itemName,
+  teacherName,
 }) => {
+
+  console.log(CourseSelector);
   const [showAddModal, setShowAddModal] = useState(false);
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -61,7 +63,7 @@ const CourseList = ({
 
   const handleShowAddModel = () => setShowAddModal(true);
   const handleCloseAddModel = () => setShowAddModal(false);
-console.log(courses);
+ 
   const handleShowEditModel = () => setShowEditModal(true);
   const handleCloseEditModel = () => {
     setShowEditModal(false);
@@ -72,34 +74,40 @@ console.log(courses);
 
   const [content, setContent] = useState({
     name: "",
-    street_name: "",
-    phone: "",
+    description: "",
   });
   const emptyContent = {
     name: "",
-    street_name: "",
-    phone: "",
+    description: "",
   };
-  const [branchData, setBranchData] = useState({
-    branchId: 0,
+  const [courseData, setBranchData] = useState({
+    courseId: 0,
     active: 0,
   });
 
-  //-------------------------------------------------------------------------------------this function Add new branch to the db
-  const addNewBranch = async ({ name, phone, street_name }) => {
-    if (!name.trim() || !phone.trim() || !street_name.trim()) {
+  //-------------------------------------------------------------------------------------this function Add new course to the db
+  const addNewCourse = async ({ description, name }) => {
+console.log(description,name);
+  
+    if (!name.trim() &&!description.trim()) {
       setSnackBarText("some info is undefine");
       setSnackBarStatus("error");
       setTimeout(() => {
         setOpenSnackbar(true);
       }, 1000);
     } else {
-      // dispatch(AddBranchesState({ name, phone, street_name }));
-      // // setSnackBarText("branch added successfully");
-      // // setSnackBarStatus("success");
-      // setTimeout(() => {
-      //   setOpenSnackbar(true);
-      // }, 1000);
+      dispatch(
+        AddCourseState({
+          name: name,
+          description: description,
+          user_id: localStorage.getItem("id"),
+        })
+      );
+      // setSnackBarText("branch added successfully");
+      // setSnackBarStatus("success");
+      setTimeout(() => {
+        setOpenSnackbar(true);
+      }, 1000);
     }
 
     handleCloseAddModel();
@@ -116,16 +124,14 @@ console.log(courses);
   //   handleCloseConfirmedDialog();
   // };
   //-------------------------------------------------------------------------------------this function edit selected branch from db
-  const updateCurrentBranch =  (branchId) => {
-
-   
-    if (!( content.name.trim() &&
-      content.phone.trim() &&
-      content.street_name.trim())
-     
+  const updateCurrentBranch = (branchId) => {
+    if (
+      !(
+        content.name.trim() &&
+        content.phone.trim() &&
+        content.street_name.trim()
+      )
     ) {
-      
-   
       setSnackBarText("some info is undefine");
       setSnackBarStatus("error");
       // setTimeout(() => {
@@ -153,7 +159,7 @@ console.log(courses);
           marginTop: 3,
         }}
       >
-        <Typography variant="h4">Branches</Typography>
+        <Typography variant="h4">welcome Teacher {teacherName}</Typography>
         <Button
           variant="contained"
           color="primary"
@@ -161,39 +167,38 @@ console.log(courses);
             handleShowAddModel();
           }}
         >
-          Add Branch
+          Add Course
         </Button>
       </Box>
-      {!(courses?.length === 0) ? (
+      {!(CourseSelector?.courses?.length === 0) ? (
         <TableContainer component={Paper} sx={{ marginTop: 3 }}>
           <Table aria-label="branches table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>Branch Name</StyledTableCell>
+                <StyledTableCell>course Name</StyledTableCell>
                 <StyledTableCell>Created At</StyledTableCell>
-                <StyledTableCell>Location</StyledTableCell>
-                <StyledTableCell align="center">Actions</StyledTableCell>
+                <StyledTableCell>text</StyledTableCell>
+                <StyledTableCell align="center">description</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {courses?.map((branch) => (
-                <TableRow key={branch.id}>
-                  <TableCell>{branch.name}</TableCell>
-                  <TableCell>{branch.created_at}</TableCell>
-                  <TableCell>{branch.street_name}</TableCell>
+              {courses?.map((course) => (
+                <TableRow key={course.id}>
+                  <TableCell>{course.name}</TableCell>
+                  <TableCell>{course.created_at}</TableCell>
+                  <TableCell>{course.description}</TableCell>
                   <TableCell align="center">
                     <Tooltip title="Edit">
                       <IconButton
                         color="primary"
                         onClick={() => {
                           setContent({
-                            name: branch.name,
-                            street_name: branch.street_name,
-                            phone: branch.phone,
+                            name: course.name,
+                            description: course.description,
                           });
                           setBranchData({
-                            branchId: branch.id,
-                            active: branch.active,
+                            courseId: course.id,
+                            active: course.active,
                           });
                           handleShowEditModel();
                         }}
@@ -206,7 +211,7 @@ console.log(courses);
                         color="secondary"
                         onClick={() => {
                           setBranchData({
-                            branchId: branch.id,
+                            branchId: course.id,
                             active: 0,
                           });
                           handleClickOpenConfirmDialog();
@@ -224,18 +229,18 @@ console.log(courses);
       ) : (
         <Paper sx={{ padding: 3, marginTop: 3 }}>
           <Typography variant="h6" gutterBottom>
-            There are no branches added yet.
+            There are no course added yet.
           </Typography>
         </Paper>
       )}
 
-      {/* <ConfirmedAndEditDialog
+      <ConfirmedAndEditDialog
         handleCloseDialog={handleCloseConfirmedDialog}
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
         // fun={deleteCurrentBranch}
-        itemId={branchData.branchId}
-        isDeleted={branchData.active}
+        itemId={courseData.branchId}
+        isDeleted={courseData.active}
         itemName={itemName}
         snackBarText={CourseSelector.snackBarMessage}
         snackBarStatus={CourseSelector.snackBarStatus}
@@ -247,13 +252,13 @@ console.log(courses);
         setShow={setShowAddModal}
         handleShowModel={handleShowAddModel}
         itemName={itemName}
-        fun={addNewBranch}
+        fun={addNewCourse}
         handleCloseModel={handleCloseAddModel}
         content={content}
         setContent={setContent}
       />
 
-      <EditModal
+      {/* <EditModal
         snackBarText={CourseSelector.snackBarMessage}
         snackBarStatus={CourseSelector.snackBarStatus}
         show={showEditModal}
@@ -266,13 +271,13 @@ console.log(courses);
         handleCloseModel={handleCloseEditModel}
         content={content}
         setContent={setContent}
-      />
+      /> */}
       <SimpleSnackbar
         open={openSnackbar}
         setOpen={setOpenSnackbar}
         text={CourseSelector.snackBarMessage}
         status={CourseSelector.snackBarStatus}
-      /> */}
+      />
     </Box>
   );
 };

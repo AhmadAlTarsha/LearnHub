@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Form, Button, Container, Row, Col } from "react-bootstrap";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import SimpleSnackbar from "../Snackbar/index";
 
 const AddModal = ({
@@ -17,7 +17,7 @@ const AddModal = ({
   const [newText, setNewText] = useState("");
 
   const handleSaveChanges = () => {
-    console.log(content);
+   
     if (typeof content === "string") {
       fun(newText.trim());
       setTimeout(() => {

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const url = "http://localhost:5001/";
+const token = JSON.parse(localStorage.getItem("token")) ?? {};
 
 export const getAllCourses = async () => {
     try {
@@ -9,27 +10,28 @@ export const getAllCourses = async () => {
      
   
       if (!result?.data?.error) {
-        return result?.data?.course
+        return result?.data?.result
         ;
       }
     } catch (err) {
-      console.error("ERROR ====> ", err);
+      console.error(" ====> ", err);
       throw err.response.data.message;
     }
   };
 export const getCoursesById = async (courseId) => {
-
+console.log(courseId);
     try {
-      const result = await axios.get(`${url}course/${courseId}`);
+      const result = await axios.get(`${url}course/teacher/${courseId}`);
 
- 
+ console.log(result);
   
       if (!result?.data?.error) {
-        return result?.data?.course
+        return result?.data?.result
         ;
       }
     } catch (err) {
-      console.error("ERROR ====> ", err);
+        
+      console.error(" ====> ", err);
       throw err.response.data.message;
     }
   };
@@ -56,10 +58,15 @@ export const getCoursesById = async (courseId) => {
   export const addCourse = async (payload) => {
     console.log(payload);
     try {
-      const result = await axios.post(`${url}branch`, {
+      const result = await axios.post(`${url}course`, {
         name: payload.name,
-        phone: payload.phone,
-        street_name: payload.street_name,
+        description: payload.description,
+        user_id: payload.user_id,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token?.token}`,
+          "Content-Type": "multipart/form-data",
+        },
       });
   
       if (!result.data?.error) {

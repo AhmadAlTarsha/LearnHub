@@ -17,6 +17,8 @@ function Navbar() {
     redirect("/");
   };
 
+
+
   return (
     <AppBar position="fixed" sx={{ backgroundColor: "rgb(60, 60, 60)", mb: 4 }}>
       <Toolbar>
@@ -66,7 +68,7 @@ function Navbar() {
               <Button color="inherit" onClick={handleLogout}>
                 Logout
               </Button>
-              {authSelector.role === 2 ? (
+              {authSelector.role == 2 ? (
                 <Button
                   color="inherit"
                   onClick={() => {

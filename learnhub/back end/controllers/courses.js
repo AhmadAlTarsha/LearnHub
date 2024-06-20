@@ -60,7 +60,7 @@ exports.getAllCourses = async (req, res, next) => {
       return res.status(201).json({
         error: false,
         message: "no courses added yet",
-        courses: [],
+        result: [],
       });
     }
   } catch (err) {
@@ -113,11 +113,11 @@ exports.getCourseById = async (req, res, next) => {
 };
 
 exports.getCourseByUserId = async (req, res, next) => {
-  const { user_id } = req.body;
-  console.log(user_id);
+  const { id } = req.params;
+  
   try {
     const result = await Course.findAll(
-      { where: { user_id: user_id } }
+      { where: { user_id: id } }
       // {
       //   include: [
       //     {
@@ -129,13 +129,14 @@ exports.getCourseByUserId = async (req, res, next) => {
     );
 
     if (!result.length) {
-      return res.status(404).json({
-        error: true,
-        message: "course not found",
+      return res.status(200).json({
+        error: false,
+        message: "no courses added yet",
+        result:[]
       });
     }
 
-    return res.status(200).json({
+    return res.status(201).json({
       error: false,
       result: result,
      
