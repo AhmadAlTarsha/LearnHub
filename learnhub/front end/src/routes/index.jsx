@@ -5,7 +5,7 @@ import WelcomePage from "../components/welcome";
 import HomePage from "../pages/home";
 import Login from "../pages/login";
 import Signup from "../pages/signup";
-import Courses from "../pages/StudentPage/scourses";
+import Courses from "../pages/StudentPage/S-courses";
 import TeacherCourses from "../pages/TeacherPage/coursesList";
 
 export const router = createBrowserRouter([

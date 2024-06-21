@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { UserLogin } from "../service/Redux/auth";
 
-import axios from "axios";
 import {
   Box,
   Button,
@@ -38,8 +37,6 @@ const Login = () => {
     });
   };
 
-  
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (formData.email && formData.password) {
@@ -64,7 +61,6 @@ const Login = () => {
           //
         })
         .catch((error) => {
-
           console.log(error);
         });
     } else {

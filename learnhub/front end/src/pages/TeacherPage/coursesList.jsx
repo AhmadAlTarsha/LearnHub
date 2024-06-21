@@ -17,7 +17,7 @@ const Course = () => {
 const courses=CourseSelector?.courses?.filter((item)=>{
   return item.active===1
 })
-console.log(courses);
+
   // !-----------------------------------------------------------side effect
   useEffect(() => {
     dispatch(GetCoursesById(localStorage.getItem("id")));

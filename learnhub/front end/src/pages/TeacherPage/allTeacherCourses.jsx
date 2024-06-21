@@ -48,8 +48,7 @@ const CourseList = ({
   itemName,
   teacherName,
 }) => {
-console.log(courses);
-  console.log(CourseSelector);
+
   const [showAddModal, setShowAddModal] = useState(false);
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -87,19 +86,19 @@ console.log(courses);
     active: 0,
   });
 
-  //-------------------------------------------------------------------------------------this function Add new course to the db
+  //*-------------------------------------------------------------------------------------this function Add new course to the db
   const addNewCourse = async ({ description, name }) => {
 
   
-    if (!name.trim() &&!description.trim()) {
-      console.log("no");
+    if (!name.trim() ||!description.trim()) {
+  console.log(description);
       setSnackBarText("some info is undefine");
       setSnackBarStatus("error");
       setTimeout(() => {
         setOpenSnackbar(true);
       }, 1000);
     } else {
-      console.log("yes");
+    
       dispatch(
         AddCourseState({
           name: name,
@@ -107,8 +106,7 @@ console.log(courses);
           user_id: localStorage.getItem("id"),
         })
       );
-      // setSnackBarText("branch added successfully");
-      // setSnackBarStatus("success");
+   
       setTimeout(() => {
         setOpenSnackbar(true);
       }, 1000);
@@ -117,7 +115,7 @@ console.log(courses);
     handleCloseAddModel();
     setContent(emptyContent);
   };
-  //-------------------------------------------------------------------------------------this function delete selected branch from db
+  //*-------------------------------------------------------------------------------------this function delete selected course from db
   const deleteCurrentCourse = (courseId, active) => {
     dispatch(
       DeleteCourseState({
@@ -127,22 +125,22 @@ console.log(courses);
     );
     handleCloseConfirmedDialog();
   };
-  //-------------------------------------------------------------------------------------this function edit selected branch from db
-  const updateCurrentBranch = (branchId) => {
+  //*-------------------------------------------------------------------------------------this function edit selected course from db
+  const updateCurrentCourse = (courseId) => {
     if (
       !(
         content.name.trim() &&
-        content.phone.trim() &&
-        content.street_name.trim()
+        content.description.trim()
+        
       )
     ) {
       setSnackBarText("some info is undefine");
       setSnackBarStatus("error");
-      // setTimeout(() => {
-      //   setOpenSnackbar(true);
-      // }, 1000);
+      setTimeout(() => {
+        setOpenSnackbar(true);
+      }, 1000);
     } else {
-      // dispatch(EditBranchesState({ branchId, content }));
+      dispatch(EditCourseState({ courseId, content }));
     }
 
     handleCloseEditModel();
@@ -262,20 +260,20 @@ console.log(courses);
         setContent={setContent}
       />
 
-      {/* <EditModal
+      <EditModal
         snackBarText={CourseSelector.snackBarMessage}
         snackBarStatus={CourseSelector.snackBarStatus}
         show={showEditModal}
         setShow={setShowEditModal}
         handleShowModel={handleShowEditModel}
         setModalContent={setContent}
-        id={branchData.branchId}
+        id={courseData.courseId}
         itemName={itemName}
-        fun={updateCurrentBranch}
+        fun={updateCurrentCourse}
         handleCloseModel={handleCloseEditModel}
         content={content}
         setContent={setContent}
-      /> */}
+      />
       <SimpleSnackbar
         open={openSnackbar}
         setOpen={setOpenSnackbar}
@@ -288,46 +286,4 @@ console.log(courses);
 
 export default CourseList;
 
-{
-  /* <Dialog open={openAddDialog} onClose={handleClose}>
-        <DialogTitle>Add New Branch</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            name="name"
-            label="Branch Name"
-            type="text"
-            fullWidth
-            value={newBranch.name}
-            onChange={handleChange}
-          />
-          <TextField
-            margin="dense"
-            name="location"
-            label="Location"
-            type="text"
-            fullWidth
-            value={newBranch.location}
-            onChange={handleChange}
-          />
-          <TextField
-            margin="dense"
-            name="location"
-            label="Location"
-            type="text"
-            fullWidth
-            value={newBranch.location}
-            onChange={handleChange}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="secondary">
-            Cancel
-          </Button>
-          <Button onClick={handleSubmit} color="primary">
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog> */
-}
+

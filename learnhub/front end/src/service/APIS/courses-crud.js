@@ -84,16 +84,18 @@ export const addCourse = async (payload) => {
   }
 };
 export const editCourse = async (payload) => {
-  // console.log(payload.branchId);
+ 
 
   try {
-    const result = await axios.put(`${url}course/${payload.courseId}`, {
-      name: payload.content.name.trim(),
-      description: payload.description.trim(),
+    const result = await axios.put(`${url}course/${payload.courseId}`,payload.content,{
+      headers: {
+        Authorization: `Bearer ${token?.token}`,
+        "Content-Type": "multipart/form-data",
+      },
     });
 
     if (!result.data?.error) {
-      const course = await getAllCourses();
+      const course = await getCoursesById(localStorage.getItem("id"));
 
       return {
         message: result.data?.message,
