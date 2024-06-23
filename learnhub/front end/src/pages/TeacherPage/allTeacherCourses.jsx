@@ -179,8 +179,8 @@ const CourseList = ({
               <TableRow>
                 <StyledTableCell>course Name</StyledTableCell>
                 <StyledTableCell>Created At</StyledTableCell>
-                <StyledTableCell>text</StyledTableCell>
-                <StyledTableCell align="center">description</StyledTableCell>
+                <StyledTableCell>description</StyledTableCell>
+                <StyledTableCell align="center">Action</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>

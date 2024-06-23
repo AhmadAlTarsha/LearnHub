@@ -10,9 +10,16 @@ const StyledCard = styled(Card)`
   margin: 20px;
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   &:hover {
     transform: scale(1.05);
   }
+`;
+
+const StyledCardContent = styled(CardContent)`
+  flex-grow: 1;
 `;
 
 const Courses = () => {
@@ -45,23 +52,26 @@ const Courses = () => {
                 component="img"
                 alt="Course Image"
                 height="140"
-                image="https://pbs.twimg.com/profile_images/1688202871647399936/Oc697Gu4_400x400.jpg" 
+                image="https://pbs.twimg.com/profile_images/1688202871647399936/Oc697Gu4_400x400.jpg"
               />
-              <CardContent>
+              <StyledCardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {course.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Teacher: {course.teacher}
                 </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Created on: {new Date(course.created_at).toLocaleDateString()}
+                </Typography>
                 <Rating
                   name="read-only"
-                  value={Math.floor(Math.random() * 5) + 1} 
+                  value={Math.floor(Math.random() * 5) + 1}
                   readOnly
                   icon={<StarIcon fontSize="inherit" />}
                   emptyIcon={<StarIcon fontSize="inherit" />}
                 />
-              </CardContent>
+              </StyledCardContent>
             </StyledCard>
           </Grid>
         ))}
