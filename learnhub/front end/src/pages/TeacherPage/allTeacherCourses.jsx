@@ -146,7 +146,7 @@ const CourseList = ({
     handleCloseEditModel();
   };
   return (
-    <Box sx={{ backgroundColor: "lightgray", minHeight: "100vh", padding: 3 }}>
+    <Box sx={{ backgroundColor: "lightgray", minHeight: "100vh", padding: 3,flexGrow:1,mt:2 }}>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={courseUpdate}

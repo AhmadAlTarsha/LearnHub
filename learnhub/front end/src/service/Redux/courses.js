@@ -47,6 +47,7 @@ export const CourseSlice = createSlice({
     isLoading: false,
 
     courses: [],
+    allCourses:[],
     courseUpdate: false,
     snackBarMessage: "",
     snackBarStatus: "",
@@ -54,18 +55,18 @@ export const CourseSlice = createSlice({
 
   extraReducers: (builder) => {
     //===========================================================================GetAll cases
-    // builder
-    //   .addCase(GetAllCourses.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(GetAllCourses.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     state.courses = action.payload;
+    builder
+      .addCase(GetAllCourses.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(GetAllCourses.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.allCourses = action.payload;
        
-    //   })
-    //   .addCase(GetAllCourses.rejected, (state, action) => {
-    //     state.isLoading = true;
-    //   });
+      })
+      .addCase(GetAllCourses.rejected, (state, action) => {
+        state.isLoading = true;
+      });
 
 
     //==========================================================================Get By Id

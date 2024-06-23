@@ -6,9 +6,9 @@ const token = JSON.parse(localStorage.getItem("token")) ?? {};
 export const getAllCourses = async () => {
   try {
     const result = await axios.get(`${url}course`);
-
+  
     if (!result?.data?.error) {
-      return result?.data?.result;
+      return result?.data?.course;
     }
   } catch (err) {
     console.error(" ====> ", err);
@@ -84,15 +84,17 @@ export const addCourse = async (payload) => {
   }
 };
 export const editCourse = async (payload) => {
- 
-
   try {
-    const result = await axios.put(`${url}course/${payload.courseId}`,payload.content,{
-      headers: {
-        Authorization: `Bearer ${token?.token}`,
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const result = await axios.put(
+      `${url}course/${payload.courseId}`,
+      payload.content,
+      {
+        headers: {
+          Authorization: `Bearer ${token?.token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
     if (!result.data?.error) {
       const course = await getCoursesById(localStorage.getItem("id"));
