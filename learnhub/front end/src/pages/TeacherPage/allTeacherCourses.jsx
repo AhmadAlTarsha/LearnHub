@@ -91,7 +91,7 @@ const CourseList = ({
 
   
     if (!name.trim() ||!description.trim()) {
-  console.log(description);
+ 
       setSnackBarText("some info is undefine");
       setSnackBarStatus("error");
       setTimeout(() => {

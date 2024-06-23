@@ -3,10 +3,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const UserType = require("../models/user_type");
 const { throwError } = require("../middleware/throwError");
-
 const TypePermission = require("../models/type_permission");
 const Permission = require("../models/permission");
-
 const path = require("path");
 
 
@@ -84,6 +82,9 @@ exports.signup = async (req, res, next) => {
   }
 };
 
+
+//*----------------------------------------------------------------- get User By Id Function
+
 exports.getUserById = async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -117,6 +118,7 @@ exports.getUserById = async (req, res, next) => {
   }
 };
 
+//*----------------------------------------------------------------- login function to login  user
 
 
 exports.login = async (req, res, next) => {
@@ -241,40 +243,3 @@ exports.updateUserInfoById = async (req, res, next) => {
     next(err);
   }
 };
-
-// exports.updateUserImage = async (req, res, next) => {
-//   let image;
-//   try {
-//     if (req.file) {
-//       image = req.file.path.replace("\\", "/");
-//     }
-//     const { id } = req.params;
-//     const {
-//       dataValues: { civil_identity_image },
-//     } = await User.findByPk(id, {
-//       attributes: ["civil_identity_image"],
-//     });
-
-//     const [result] = await User.update(
-//       {
-//         civil_identity_image: image,
-//       },
-//       { where: { id } }
-//     );
-
-//     if (result) {
-//       clearImage(civil_identity_image);
-//       return res.status(200).json({
-//         error: false,
-//         message: "image updated successfully",
-//       });
-//     }
-//   } catch (err) {
-//     clearImage(image);
-//     if (!err.statusCode) {
-//       err.statusCode = 500;
-//     }
-//     next(err);
-//   }
-// };
-

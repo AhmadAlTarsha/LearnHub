@@ -1,5 +1,5 @@
 const Type = require("../models/user_type");
-// const {Error} = require("../middleware/throwError");
+
 
 
 

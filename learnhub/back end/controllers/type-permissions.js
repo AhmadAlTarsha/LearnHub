@@ -33,7 +33,7 @@ exports.getAllTypePermissions = async (req, res, next) => {
         
       ],
     });
-console.log(result);
+
    
     if (result[0]?._options?.raw) {
       return res.status(200).json({
@@ -63,7 +63,7 @@ exports.getAllPermissionsOnUserType = async (req, res, next) => {
 const userPermission= result.map((data)=>{
  return data.Permission.name
 });
-console.log(result);
+
  
     if (result[0]?._options?.raw) {
       return res.status(200).json({

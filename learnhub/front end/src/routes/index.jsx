@@ -37,8 +37,5 @@ export const router = createBrowserRouter([
     
     ],
   },
-  // {
-  //   path: "/restaurant",
-  //   element: <RestaurantBranches />,
-  // },
+ 
 ]);

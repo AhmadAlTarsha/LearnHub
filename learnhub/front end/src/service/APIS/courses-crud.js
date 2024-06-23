@@ -29,7 +29,7 @@ export const getCoursesById = async (courseId) => {
 };
 
 export const deleteCourse = async (payload) => {
-  console.log(payload);
+
   try {
     const result = await axios.delete(`${url}course/${payload.courseId}`, {
       headers: {
@@ -53,7 +53,7 @@ export const deleteCourse = async (payload) => {
 };
 
 export const addCourse = async (payload) => {
-  console.log(payload);
+
   try {
     const result = await axios.post(
       `${url}course`,

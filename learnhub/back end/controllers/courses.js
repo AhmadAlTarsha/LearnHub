@@ -4,6 +4,8 @@ const User = require("../models/user");
 const { throwError } = require("../middleware/throwError");
 const { Op } = require("sequelize");
 
+//*-------------------------------------------------------------------
+
 exports.addNewCourse = async (req, res, next) => {
   const { name, description, user_id } = req.body;
 
@@ -27,6 +29,10 @@ exports.addNewCourse = async (req, res, next) => {
     });
   }
 };
+
+
+//*-------------------------------------------------------------------
+
 
 exports.getAllCourses = async (req, res, next) => {
   try {
@@ -54,7 +60,7 @@ exports.getAllCourses = async (req, res, next) => {
       return res.status(200).json({
         error: false,
         course: allCourses,
-        // test:result
+      
       });
     } else if (result.length === 0) {
       return res.status(201).json({
@@ -70,6 +76,8 @@ exports.getAllCourses = async (req, res, next) => {
     });
   }
 };
+
+//*-------------------------------------------------------------------
 
 exports.getCourseById = async (req, res, next) => {
   const { id } = req.params;
@@ -90,8 +98,7 @@ exports.getCourseById = async (req, res, next) => {
         message: "course not found",
       });
     }
-    console.log(result);
-    // const teacher = result.user.full_name
+  
 
     return res.status(200).json({
       error: false,
@@ -112,20 +119,15 @@ exports.getCourseById = async (req, res, next) => {
   }
 };
 
+//*-------------------------------------------------------------------
+
 exports.getCourseByUserId = async (req, res, next) => {
   const { id } = req.params;
   
   try {
     const result = await Course.findAll(
       { where: { user_id: id } }
-      // {
-      //   include: [
-      //     {
-      //       model: User,
-      //       attributes: ["full_name"],
-      //     },
-      //   ],
-      // }
+     
     );
 
     if (!result.length) {
@@ -148,34 +150,19 @@ exports.getCourseByUserId = async (req, res, next) => {
     });
   }
 };
+//*-------------------------------------------------------------------
+
 exports.editCourse = async (req, res, next) => {
   const { id } = req.params;
   const { name, description } = req.body;
 
   try {
-    // const existingBranch = await Branch.findOne({
-    //   where: {
-    //     name,
-    //     active: 1,
-    //     id: { [Op.ne]: id },
-    //   },
-    // });
-    // if (existingBranch) {
-    //   return res.status(400).json({
-    //     error: true,
-    //     message: "branch name in use",
-    //   });
-    // }
+ 
     const result = await Course.update(
       { name, description },
       { where: { id } }
     );
-    // if (result.sqlMessage) {
-    //   return res.status(200).json({
-    //     error: false,
-    //     message: "Account info in use",
-    //   });
-    // }
+ 
 
     if (result[0] === 0) {
       return res.status(404).json({
@@ -195,6 +182,7 @@ exports.editCourse = async (req, res, next) => {
     });
   }
 };
+//*-------------------------------------------------------------------
 
 exports.deleteCourse = async (req, res) => {
   const { id } = req.params;
@@ -211,7 +199,7 @@ exports.deleteCourse = async (req, res) => {
         message: "course deleted successfully",
       });
     }
-    console.log(result);
+  
   } catch (err) {
     return res.status(500).json({
       error: true,

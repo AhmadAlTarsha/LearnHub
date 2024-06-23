@@ -46,15 +46,6 @@ state.role=localStorage.getItem("role")
 state.full_name=localStorage.getItem("name")
 state.isLogin=localStorage.getItem("isLogin")
 
-
-        // localStorage.setItem(
-        //   "localUser",
-        //   JSON.stringify({
-        //     id: action?.payload?.id,
-        //     token: action?.payload?.token,
-        //     isLoggedIn: true,
-        //   })
-        // );
       })
       .addCase(UserLogin.rejected, (state, action) => {
 
@@ -74,21 +65,7 @@ state.isLogin=localStorage.getItem("isLogin")
         state.isLogin=localStorage.getItem("isLogin")
 
     },
-    setLogout: (state) => {
-    //   state.user = {
-    //     id: 0,
-    //     fullName: "",
-    //     nickName: "",
-    //     token: "",
-    //     email: "",
-    //     image: "",
-    //     role: 0,
-    //     region: 0,
-    //   };
-
-    //   localStorage.removeItem("localUser");
-    //   localStorage.removeItem("token");
-    },
+  
   },
 });
 

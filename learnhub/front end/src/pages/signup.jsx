@@ -74,7 +74,7 @@ function Signup() {
               user_type_id: formData.user_type_id,
             }
           );
-          console.log(result);
+         
 
           setSnackBar({
             text: "signup successfully",

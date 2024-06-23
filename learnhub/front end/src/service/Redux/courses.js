@@ -76,7 +76,7 @@ export const CourseSlice = createSlice({
       })
       .addCase(GetCoursesById.fulfilled, (state, action) => {
 
-        console.log(action.payload);
+      
         state.isLoading = false;
         state.courses = action.payload;
        
@@ -94,7 +94,7 @@ export const CourseSlice = createSlice({
         };
       })
       .addCase(EditCourseState.fulfilled, (state, action) => {
-        console.log(action.payload);
+      
         state.snackBarMessage = action.payload.message;
         state.courseUpdate = false;
 
@@ -117,7 +117,7 @@ export const CourseSlice = createSlice({
         state.courseUpdate = false;
       });
 
-    // //================================================================Add cases
+    //================================================================Add cases
     builder
       .addCase(AddCourseState.pending, (state) => {
         state.courseUpdate = true;
@@ -128,7 +128,7 @@ export const CourseSlice = createSlice({
         };
       })
       .addCase(AddCourseState.fulfilled, (state, action) => {
-        console.log(action.payload);
+      
         state.branchUpdate = false;
 
         state.snackBarMessage = action.payload.message;
@@ -142,7 +142,7 @@ export const CourseSlice = createSlice({
       .addCase(AddCourseState.rejected, (state, action) => {
         state.errorMessage = {
           isError: true,
-          // return err
+      
           message: `${action.payload ?? "Error Adding Color"}`,
         };
         state.courseUpdate = false;

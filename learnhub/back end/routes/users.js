@@ -17,8 +17,5 @@ usersRouter.get("/:id", getUserById);
 
 usersRouter.post("/login", login);
 usersRouter.put("/update/info/:id", updateUserInfoById);
-// usersRouter.put("/update/image/:id", updateUserImage);
-
-// usersRouter.put("/update/spare-phone/:id", updateUserSparePhone);
 
 module.exports = usersRouter;
