@@ -36,7 +36,7 @@ These instructions will get you a copy of the project up and running on your loc
 1. Clone the repo to your local machine using git bash.
 
 ```
-git clone https://github.com/MohMajali/task.git
+git clone https://github.com/AhmadAlTarsha/LearnHub
 ```
 
 2. Install packeges repeat this step in backend and frontend folder
@@ -56,7 +56,7 @@ npm i
 
 ```
 npm start
-Webiste url from backend : http://localhost:8080/
+Webiste url from backend : http://localhost:5001/
 ```
 
 5. Run application using git bash inside frontend folder
@@ -67,14 +67,17 @@ Website Url from frontend: as the terminal will provide you with
 ```
 
 6. Users credentials : 
-- Admin : 
+- Teachers : 
   
-  - email : admin@yahoo.com
+  - email : fadwa@gmail.com
+  - password : 1234
+
+  - email : wael@gmail.com
   - password : 1234
   - 
-- Provider : 
+- student : 
   
-  - email : provider@yahoo.com
+  - email : ahmadwael.altarsha@gmail.com
   - password : 1234
 
 Now app ready to use
@@ -99,6 +102,4 @@ The project is built based on user experience and ease of use, below you can fin
 
 
 
-## Data Flow <a name = "#data_flow"></a>
 
-<img width=400px height=400px src="https://cdn.discordapp.com/attachments/1053746629091536968/1173232278365810799/ERD.png?ex=656334b4&is=6550bfb4&hm=c2712df2b4f95b4e437a579ef64ea973415e20cab3b07099912590035bf5b9fb&" alt="Diagram"></a>
